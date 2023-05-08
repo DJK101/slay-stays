@@ -1,6 +1,6 @@
 import pytest
 from io import StringIO
-from login_system import find_user
+from app.login_system import find_user
 
 
 @pytest.fixture
