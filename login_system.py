@@ -1,4 +1,10 @@
-import csv
+def find_user(username: str):
+    pass
 
-with open('users.csv', 'w', newline='') as csvfile:
-    writer = csv.writer(csvfile)
+
+def delete_user(username: str):
+    pass
+
+
+def create_user(username: str, password: str):
+    pass
