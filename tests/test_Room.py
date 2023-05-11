@@ -10,6 +10,10 @@ def test_find_capacity():
     assert False
 
 
+def test_random_bool():
+    assert False
+
+
 def test_is_sunny_outside():
     assert False
 

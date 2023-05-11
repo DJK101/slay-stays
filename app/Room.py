@@ -1,5 +1,6 @@
 import datetime
 import random
+import csv
 
 
 class Hotel_Room:
@@ -28,9 +29,9 @@ Available_Rooms = [
     Hotel_Room('Deluxe', 2, 250),
     # can only book if it's DJ's birthday
     Hotel_Room('Superior', 2, 200),
-    # can only book if
+    # can only book if it's a sunny Tuesday
     Hotel_Room('Standard', 2, 110),
-    # can only book if
+    # can only book if it's a rainy Wednesday
     Hotel_Room('Economy', 1, 90),
 ]
 
@@ -118,5 +119,10 @@ def is_djs_birthday():
         return False
 
 
-def room_booked():
-    return False
+def rooms_booked():
+    bookings = []
+    with open('bookings.csv', 'r') as csv_file:
+        reader = csv.reader(csv_file)
+        for i in reader:
+            bookings.append(i)
+        return bookings
