@@ -28,3 +28,15 @@ def test_is_tuesday():
 
 def test_is_wednesday():
     assert False
+
+
+def test_is_my_birthday():
+    assert False
+
+
+def test_is_rosies_birthday():
+    assert False
+
+
+def test_is_djs_birthday():
+    assert False

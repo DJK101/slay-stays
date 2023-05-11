@@ -22,11 +22,16 @@ Available_Rooms = [
     Hotel_Room('Suite', 2, 200),
     # can only book if it's a wednesday
     Hotel_Room('Penthouse', 6, 300),
-    # can only book if its
+    # can only book if it's my birthday
     Hotel_Room('Presidential', 4, 500),
+    # can only book if it's Rosie's birthday
     Hotel_Room('Deluxe', 2, 250),
+    # can only book if it's DJ's birthday
     Hotel_Room('Superior', 2, 200),
+    # can only book if
     Hotel_Room('Standard', 2, 110),
+    # can only book if
+    Hotel_Room('Economy', 1, 90),
 ]
 
 
@@ -71,4 +76,21 @@ def is_tuesday():
 
 
 def is_wednesday():
+    return False
+
+
+def is_my_birthday():
+    MyBirthday = datetime.date(2005, 8, 30)
+    today = datetime.date.today()
+    if MyBirthday == today:
+        return True
+    else:
+        return False
+
+
+def is_rosies_birthday():
+    return False
+
+
+def is_djs_birthday():
     return False
