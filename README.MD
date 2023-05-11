@@ -6,3 +6,11 @@ It is a simple [\[ISE\]](https://software-engineering.ie) student project to lea
 - [D.J. Kennedy](https://github.com/DJK101)
 - [Rosie Kennelly](https://github.com/Rosie-Kennelly)
 - [Amy Roys](https://github.com/AmyRoys)
+
+## Project Outline 
+
+## How to Run  
+
+## Test Coverage 
+
+## Contributions 
