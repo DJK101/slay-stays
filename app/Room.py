@@ -1,4 +1,5 @@
 import datetime
+import random
 
 
 class Hotel_Room:
@@ -58,16 +59,20 @@ def find_capacity(capacity):
     return None
 
 
+def random_bool():
+    return random.choice([True, False])
+
+
 def is_sunny_outside():
-    return True
+    return random_bool()
 
 
 def is_raining_outside():
-    return False
+    return random_bool()
 
 
 def is_snowing_outside():
-    return False
+    return random_bool()
 
 
 def is_tuesday():
@@ -114,4 +119,4 @@ def is_djs_birthday():
 
 
 def room_booked():
-    pass
+    return False
