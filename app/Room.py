@@ -89,8 +89,18 @@ def is_my_birthday():
 
 
 def is_rosies_birthday():
-    return False
+    RBirthday = datetime.date(2004, 3, 2)
+    today = datetime.date.today()
+    if RBirthday == today:
+        return True
+    else:
+        return False
 
 
 def is_djs_birthday():
-    return False
+    DJBirthday = datetime.date(2005, 8, 30)
+    today = datetime.date.today()
+    if DJBirthday == today:
+        return True
+    else:
+        return False
