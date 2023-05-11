@@ -72,11 +72,19 @@ def is_snowing_outside():
 
 
 def is_tuesday():
-    return False
+    x = datetime.datetime.now()
+    if x.strftime("%A") == "Tuesday":
+        return True
+    else:
+        return False
 
 
 def is_wednesday():
-    return False
+    x = datetime.datetime.now()
+    if x.strftime("%A") == "Wednesday":
+        return True
+    else:
+        return False
 
 
 def is_my_birthday():
@@ -104,3 +112,5 @@ def is_djs_birthday():
         return True
     else:
         return False
+def room_booked():
+
