@@ -1,5 +1,4 @@
 import datetime
-import csv
 
 
 class Hotel_Room:
@@ -112,5 +111,7 @@ def is_djs_birthday():
         return True
     else:
         return False
-def room_booked():
 
+
+def room_booked():
+    pass
