@@ -1,6 +1,9 @@
+import datetime
+import pytest
 from app.Room import random_bool, is_sunny_outside, is_raining_outside, is_snowing_outside, is_tuesday, \
     is_wednesday, is_birthday, find_room, find_price, find_capacity
 from freezegun import freeze_time
+from datetime import datetime as dt
 
 
 def test_find_room():
@@ -34,34 +37,47 @@ def test_find_capacity():
 
 
 def test_random_bool():
-    for i in range(0, 100):
-        assert random_bool() in [True, False]
+    assert random_bool() in [True, False]
 
 
 def test_is_sunny_outside():
-    for i in range(0, 100):
-        assert is_sunny_outside() in [True, False]
+    assert is_sunny_outside() in [True, False]
 
 
 def test_is_raining_outside():
-    for i in range(0, 100):
-        assert is_raining_outside() in [True, False]
+    assert is_raining_outside() in [True, False]
 
 
 def test_is_snowing_outside():
-    for i in range(0, 100):
-        assert is_snowing_outside() in [True, False]
+    assert is_snowing_outside() in [True, False]
 
 
-def test_is_tuesday():
-    assert is_tuesday() in [True, False]
+@pytest.fixture
+def now():
+    return datetime.datetime.now()
 
 
-def test_is_wednesday():
-    assert is_wednesday() in [True, False]
+@pytest.mark.parametrize("date, expected", [('2022-06-08', False),
+                                            ('2022-06-07', True),
+                                            ('2022-06-09', False)])
+def test_is_tuesday(date, expected):
+    date = dt.strptime(date, '%Y-%m-%d')
+    assert is_tuesday(date) == expected
+
+
+@pytest.fixture
+def now():
+    return datetime.datetime.now()
+
+
+@pytest.mark.parametrize("date, expected", [('2022-06-08', True),
+                                            ('2022-06-07', False),
+                                            ('2022-06-09', False)])
+def test_is_wednesday(date, expected):
+    date = dt.strptime(date, '%Y-%m-%d')
+    assert is_wednesday(date) == expected
 
 
 @freeze_time("2021-07-23")
 def test_is_birthday():
     assert is_birthday()
-

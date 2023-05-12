@@ -23,11 +23,11 @@ Available_Rooms = [
     Room('Suite', 2, 200),
     # can only book if it's a wednesday
     Room('Penthouse', 6, 300),
-    # can only book if it's my birthday
+    # can only book if it's a birthday
     Room('Presidential', 4, 500),
-    # can only book if it's Rosie's birthday
+    # can only book if it's a birthday
     Room('Deluxe', 2, 250),
-    # can only book if it's DJ's birthday
+    # can only book if it's a birthday
     Room('Superior', 2, 200),
     # can only book if it's a sunny Tuesday
     Room('Standard', 2, 110),
@@ -76,20 +76,12 @@ def is_snowing_outside():
     return random_bool()
 
 
-def is_tuesday():
-    x = datetime.datetime.now()
-    if x.strftime("%A") == "Tuesday":
-        return True
-    else:
-        return False
+def is_tuesday(dt: datetime.datetime) -> bool:
+    return dt.strftime("%A") == "Tuesday"
 
 
-def is_wednesday():
-    x = datetime.datetime.now()
-    if x.strftime("%A") == "Wednesday":
-        return True
-    else:
-        return False
+def is_wednesday(dt: datetime.datetime) -> bool:
+    return dt.strftime("%A") == "Wednesday"
 
 
 def is_birthday():
