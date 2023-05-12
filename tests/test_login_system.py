@@ -22,7 +22,6 @@ def test_create_user(file):
     assert False
 
 
-def test_delete_user(file):
-    assert False
-
-
+@pytest.mark.parametrize("test_input, expected", [('dj', True), ('me', True), ('amy', True)])
+def test_delete_user(file, test_input, expected):
+    assert delete_user(test_input, file) == expected
