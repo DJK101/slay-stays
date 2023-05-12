@@ -3,7 +3,7 @@ import random
 import csv
 
 
-class Hotel_Room:
+class Room:
     # name of the room, no. of people, price per night
     def __init__(self, name, capacity, price):
         self.name = name
@@ -14,25 +14,25 @@ class Hotel_Room:
 # list of available rooms the user can book
 Available_Rooms = [
     # can only book if it's sunny
-    Hotel_Room('Double', 2, 100),
+    Room('Double', 2, 100),
     # can only book if its raining
-    Hotel_Room('Single', 1, 80),
+    Room('Single', 1, 80),
     # can only book if its snowing
-    Hotel_Room('Family', 4, 150),
+    Room('Family', 4, 150),
     # can only book if it's a tuesday
-    Hotel_Room('Suite', 2, 200),
+    Room('Suite', 2, 200),
     # can only book if it's a wednesday
-    Hotel_Room('Penthouse', 6, 300),
+    Room('Penthouse', 6, 300),
     # can only book if it's my birthday
-    Hotel_Room('Presidential', 4, 500),
+    Room('Presidential', 4, 500),
     # can only book if it's Rosie's birthday
-    Hotel_Room('Deluxe', 2, 250),
+    Room('Deluxe', 2, 250),
     # can only book if it's DJ's birthday
-    Hotel_Room('Superior', 2, 200),
+    Room('Superior', 2, 200),
     # can only book if it's a sunny Tuesday
-    Hotel_Room('Standard', 2, 110),
+    Room('Standard', 2, 110),
     # can only book if it's a rainy Wednesday
-    Hotel_Room('Economy', 1, 90),
+    Room('Economy', 1, 90),
 ]
 
 
@@ -111,7 +111,7 @@ def is_rosies_birthday():
 
 
 def is_djs_birthday():
-    DJBirthday = datetime.date(2005, 8, 30)
+    DJBirthday = datetime.date(2003, 7, 23)
     today = datetime.date.today()
     if DJBirthday == today:
         return True

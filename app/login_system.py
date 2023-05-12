@@ -9,8 +9,12 @@ def find_user(username: str, file):
             return i
 
 
-def delete_user(username: str, file):
-    pass
+def delete_user(usersDelete: str, file):
+    users = csv.DictReader(file)
+    users = list(users)
+    for i in range(0, len(users)):
+        if users[i]['username'] == usersDelete:
+            return True
 
 
 def create_user(username: str, password: str, file):
