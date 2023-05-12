@@ -92,28 +92,12 @@ def is_wednesday():
         return False
 
 
-def is_my_birthday():
-    MyBirthday = datetime.date(2005, 8, 30)
-    today = datetime.date.today()
-    if MyBirthday == today:
-        return True
-    else:
-        return False
-
-
-def is_rosies_birthday():
-    RBirthday = datetime.date(2004, 3, 2)
-    today = datetime.date.today()
-    if RBirthday == today:
-        return True
-    else:
-        return False
-
-
-def is_djs_birthday():
-    DJBirthday = datetime.date(2003, 7, 23)
-    today = datetime.date.today()
-    if DJBirthday == today:
+def is_birthday():
+    now = datetime.date.today()
+    birthdays = [datetime.date(now.year, 8, 30),
+                 datetime.date(now.year, 7, 23),
+                 datetime.date(now.year, 3, 2)]
+    if now in birthdays:
         return True
     else:
         return False
