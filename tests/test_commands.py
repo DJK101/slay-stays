@@ -1,8 +1,16 @@
-from app.commands import help_menu, book_room, check_bookings, change_username, change_password
+import pytest
+from io import StringIO
+import app.commands as cmds
 
 
-def test_help_menu():
-    assert False
+@pytest.fixture()
+def bookings():
+    return StringIO(
+        "username,room,date\n"
+        "dj,double,2025-01-01\n"
+        "amy,single,2023-10-05\n"
+        "rosie,economy,2024-11-11\n"
+    )
 
 
 def test_book_room():
