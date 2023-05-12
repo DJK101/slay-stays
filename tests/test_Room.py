@@ -1,5 +1,6 @@
-from app.Room import is_djs_birthday, random_bool, is_sunny_outside, is_raining_outside, is_snowing_outside, is_tuesday, \
-    is_wednesday, is_my_birthday, is_rosies_birthday, find_room, find_price, find_capacity
+from app.Room import random_bool, is_sunny_outside, is_raining_outside, is_snowing_outside, is_tuesday, \
+    is_wednesday, is_birthday, find_room, find_price, find_capacity
+from freezegun import freeze_time
 
 
 def test_find_room():
@@ -60,13 +61,7 @@ def test_is_wednesday():
     assert is_wednesday() in [True, False]
 
 
-def test_is_my_birthday():
-    assert is_my_birthday() in [True, False]
+@freeze_time("2021-07-23")
+def test_is_birthday():
+    assert is_birthday()
 
-
-def test_is_rosies_birthday():
-    assert is_rosies_birthday() in [True, False]
-
-
-def test_is_djs_birthday():
-    assert is_djs_birthday() in [True, False]
