@@ -1,4 +1,4 @@
-def help():
+def help_menu():
     pass
 
 
