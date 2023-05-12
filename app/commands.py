@@ -1,5 +1,5 @@
 def help_menu():
-    pass
+    print("List of commands: ['help', 'book', 'my_bookings', 'change']")
 
 
 def book_room():
@@ -15,4 +15,8 @@ def change_username():
 
 
 def change_password():
+    pass
+
+
+def shut_down():
     pass
