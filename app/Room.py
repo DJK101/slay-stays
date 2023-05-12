@@ -14,25 +14,25 @@ class Room:
 # list of available rooms the user can book
 Available_Rooms = [
     # can only book if it's sunny
-    Room('Double', 2, 100),
+    Room('double', 2, 100),
     # can only book if its raining
-    Room('Single', 1, 80),
+    Room('single', 1, 80),
     # can only book if its snowing
-    Room('Family', 4, 150),
+    Room('family', 4, 150),
     # can only book if it's a tuesday
-    Room('Suite', 2, 200),
+    Room('suite', 2, 200),
     # can only book if it's a wednesday
-    Room('Penthouse', 6, 300),
+    Room('penthouse', 6, 300),
     # can only book if it's my birthday
-    Room('Presidential', 4, 500),
+    Room('presidential', 4, 500),
     # can only book if it's Rosie's birthday
-    Room('Deluxe', 2, 250),
+    Room('deluxe', 2, 250),
     # can only book if it's DJ's birthday
-    Room('Superior', 2, 200),
+    Room('superior', 2, 200),
     # can only book if it's a sunny Tuesday
-    Room('Standard', 2, 110),
+    Room('standard', 2, 110),
     # can only book if it's a rainy Wednesday
-    Room('Economy', 1, 90),
+    Room('economy', 1, 90),
 ]
 
 
