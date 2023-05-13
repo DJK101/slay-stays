@@ -1,5 +1,4 @@
 import pytest
-from io import StringIO
 import app.login_system as login
 import csv
 
@@ -11,9 +10,9 @@ def users(tmp_path):
         writer = csv.writer(bookings)
         writer.writerows(
             [
-                ['username', 'room', 'date'],
-                ['dj', 'suite', '2023-09-17'],
-                ['amy', 'double', '2023-09-17'],
+                ['username', 'password'],
+                ['dj', '1234'],
+                ['amy', 'drummer'],
             ]
         )
     yield csv_file
@@ -34,4 +33,4 @@ def test_delete_user(users, test_input, expected):
 
 
 def test_check_password(users):
-    assert login.check_password('dj', '100', users)
+    assert login.check_password('dj', '1234', users)
