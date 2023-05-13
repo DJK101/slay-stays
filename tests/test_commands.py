@@ -69,8 +69,9 @@ def test_check_bookings_prints_error_if_no_bookings_found(capsys, bookings, user
     assert out.find('Sorry') != -1
 
 
-def test_change_username():
-    assert False
+def test_username_updated():
+    cmds.change_username(username, new_username)
+    assert username = new_username
 
 
 def test_change_password():
