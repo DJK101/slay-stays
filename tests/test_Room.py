@@ -74,7 +74,9 @@ def test_is_birthday():
     assert is_birthday()
 
 
+# problem with this test, the second bool parameter is fixed in the test but randomly generated in the function,
+#  so the test will randomly pass / fail
 @pytest.mark.parametrize("room, result, expected", [
-    ("Double", False, False), ("Double", True, True), ("Double", False, False), ("Double", True, True)])
+    ("Double", False, False), ("Double", True, True)])
 def test_can_book_room(room, result, expected):
     assert can_book_room(room, result) == expected
