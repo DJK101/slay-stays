@@ -1,7 +1,5 @@
 import csv
 
-import pytest
-
 
 # Returns index of username in the database. First user at index 0
 def find_user(username: str, file) -> int:
