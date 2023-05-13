@@ -1,3 +1,4 @@
+import csv
 import datetime as dt
 
 
@@ -6,8 +7,11 @@ def help_menu():
 
 
 # File parameter so the function can be tested easily
-def book_room(username: str, room: str, date: dt.date, file):
-    print(username, room, date, file)
+def book_room(username: str, room: str, date: dt.date, csv_file):
+    with open(csv_file, 'a', newline='') as file:
+        writer = csv.writer(file)
+        date_string = date.strftime('%Y-%m-%d')
+        writer.writerow([username, room, date_string])
     pass
 
 

@@ -19,13 +19,14 @@ def bookings(tmp_path):
     yield csv_file
 
 
-def test_book_room(bookings):
+def test_book_room_adds_to_csv(bookings):
     with open(bookings) as file:
         reader = csv.reader(file)
         bookings_before = list(reader)
         file.seek(0)  # Set reader to read from beginning of csv file
-        entries = ['amy', 'suite', dt.strptime('2023-09-17', '%Y-%m-%d')]
-        cmds.book_room(entries[0], entries[1], entries[2], file)
+        entries = ['amy', 'suite', '2023-09-17']
+        date = dt.strptime(entries[2], '%Y-%m-%d')
+        cmds.book_room(entries[0], entries[1], date, bookings)
         bookings_after = list(reader)
         assert len(bookings_before) + 1 == len(bookings_after)
         assert bookings_after[-1] == entries
