@@ -12,7 +12,8 @@ def users(tmp_path):
             [
                 ['username', 'password'],
                 ['dj', '1234'],
-                ['amy', 'drummer'],
+                ['me', 'pwd'],
+                ['amy', 'drummer']
             ]
         )
     yield csv_file
