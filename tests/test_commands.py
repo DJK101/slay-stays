@@ -19,17 +19,18 @@ def bookings(tmp_path):
     yield csv_file
 
 
-def test_book_room_adds_to_csv(bookings):
+@pytest.mark.parametrize("entries", [['amy', 'suite', '2023-09-17'],
+                                     ['rosie', 'double', '2024-07-01']])
+def test_book_room_adds_to_csv(bookings, entries):
     with open(bookings) as file:
         reader = csv.reader(file)
         bookings_before = list(reader)
         file.seek(0)  # Set reader to read from beginning of csv file
-        entries = ['amy', 'suite', '2023-09-17']
-        date = dt.strptime(entries[2], '%Y-%m-%d')
-        cmds.book_room(entries[0], entries[1], date, bookings)
+        date = dt.strptime(entries[2], '%Y-%m-%d')  # Convert string to datetime object for function
+        cmds.book_room(entries[0], entries[1], date, bookings)  # Function being tested
         bookings_after = list(reader)
-        assert len(bookings_before) + 1 == len(bookings_after)
-        assert bookings_after[-1] == entries
+        assert len(bookings_before) + 1 == len(bookings_after)  # Check a newline was added to the csv
+        assert bookings_after[-1] == entries  # Checks said line was the correct one
 
 
 def test_check_bookings():
