@@ -3,12 +3,15 @@ import csv
 
 # Returns index of username in the database. First user at index 0
 def find_user(username: str, file) -> int:
-    users = csv.DictReader(file)
-    users = list(users)
-    for i in range(0, len(users)):
-        if users[i]['username'] == username:
-            return i
-    return -1
+    with open(file) as users:
+        reader = csv.DictReader(users)
+        users = list(reader)
+        usernames = [user['username'] for user in users]
+        try:
+            return usernames.index(username)
+        except ValueError:
+            return -1
+
 
 
 def delete_user(usersDelete: str, file):
