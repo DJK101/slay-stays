@@ -28,4 +28,4 @@ def test_delete_user(file, test_input, expected):
 
 
 def test_check_password(file):
-    assert login.check_password('dj', '100', file) == True
+    assert login.check_password('dj', '100', file)
