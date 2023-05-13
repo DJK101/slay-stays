@@ -14,9 +14,28 @@ def find_user(username: str, file) -> int:
 
 
 def delete_user(username: str, admin_password: str, file):
-    user_index = find_user(username, file)
-    if user_index == -1:
-        print()
+    if admin_password != 'tracworx':
+        print("Error! The admin password entered was incorrect!")
+        return
+
+    if find_user(username, file) == -1:  # -1 Indicates no matching user was found in the database
+        print(f"Error! No user '{username}' was found.")
+        return
+
+    with open(file) as users:
+        reader = csv.DictReader(users)
+        users_list = list(reader)
+        new_users_list = [user for user in users_list if user['username'] == username]
+
+    with open(file, 'w', newline='') as users:
+        writer = csv.DictWriter(users, ['username', 'password'])
+        writer.writeheader()
+        writer.writerows(new_users_list)
+
+    print(f"Success! Deleted user '{username}' from database.")
+
+
+
 
 
 def create_user(username: str, password: str, file):
