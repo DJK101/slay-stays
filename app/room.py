@@ -12,23 +12,23 @@ class Room:
 
 
 # list of available rooms the user can book
-Available_Rooms = [
-    Room('Double', 2, 100),
-    Room('Single', 1, 80),
-    Room('Family', 4, 150),
-    Room('Suite', 2, 200),
-    Room('Penthouse', 6, 300),
-    Room('Presidential', 4, 500),
-    Room('Deluxe', 2, 250),
-    Room('Superior', 2, 200),
-    Room('Standard', 2, 110),
-    Room('Economy', 1, 90),
+AVAILABLE_ROOMS = [
+    Room('double', 2, 100),
+    Room('single', 1, 80),
+    Room('family', 4, 150),
+    Room('suite', 2, 200),
+    Room('penthouse', 6, 300),
+    Room('presidential', 4, 500),
+    Room('deluxe', 2, 250),
+    Room('superior', 2, 200),
+    Room('standard', 2, 110),
+    Room('economy', 1, 90),
 ]
 
 
 # find room by name
 def get_room(name):
-    for room in Available_Rooms:
+    for room in AVAILABLE_ROOMS:
         if room.name == name:
             return room
     return None
@@ -36,7 +36,7 @@ def get_room(name):
 
 # find room by price
 def find_price(price):
-    for room in Available_Rooms:
+    for room in AVAILABLE_ROOMS:
         if room.price == price:
             return room
     return None
@@ -44,7 +44,7 @@ def find_price(price):
 
 # find room by capacity
 def find_capacity(capacity):
-    for room in Available_Rooms:
+    for room in AVAILABLE_ROOMS:
         if room.capacity == capacity:
             return room
     return None
@@ -103,34 +103,34 @@ def rooms_booked():
 
 
 def can_book_room(name, dt):
-    if name == 'Double' and not is_sunny_outside():
+    if name == 'double' and not is_sunny_outside():
         print("You cannot book this room because it's not sunny outside!")
         return False
-    elif name == 'Single' and not is_raining_outside():
+    elif name == 'single' and not is_raining_outside():
         print("You cannot book this room because it's not raining outside!")
         return False
-    elif name == 'Family' and not is_snowing_outside():
+    elif name == 'family' and not is_snowing_outside():
         print("You cannot book this room because it's not snowing outside!")
         return False
-    elif name == 'Suite' and not is_tuesday(dt):
+    elif name == 'suite' and not is_tuesday(dt):
         print("You can book this room because it's not a Tuesday!")
         return False
-    elif name == 'Penthouse' and not is_wednesday(dt):
+    elif name == 'penthouse' and not is_wednesday(dt):
         print("You cannot book this room because it's not a Wednesday!")
         return False
-    elif name == 'Presidential' and not is_birthday():
+    elif name == 'presidential' and not is_birthday():
         print("You cannot book this room because it's not one of our birthdays!")
         return False
-    elif name == 'Deluxe' and not is_birthday():
+    elif name == 'deluxe' and not is_birthday():
         print("You cannot book this room because it's not one of our birthdays!")
         return False
-    elif name == 'Superior' and not is_birthday():
+    elif name == 'superior' and not is_birthday():
         print("You cannot book this room because it's not one of our birthdays!")
         return False
-    elif name == 'Standard' and (not is_sunny_outside() or not is_tuesday(dt)):
+    elif name == 'standard' and (not is_sunny_outside() or not is_tuesday(dt)):
         print("You cannot book this room because it's not a sunny Tuesday!")
         return False
-    elif name == 'Economy' and (not is_raining_outside() or not is_wednesday(dt)):
+    elif name == 'economy' and (not is_raining_outside() or not is_wednesday(dt)):
         print("You cannot book this room because it's not a rainy Wednesday!")
         return False
     else:
