@@ -14,7 +14,9 @@ def find_user(username: str, file) -> int:
 
 
 def delete_user(username: str, admin_password: str, file):
-    pass
+    user_index = find_user(username, file)
+    if user_index == -1:
+        print()
 
 
 def create_user(username: str, password: str, file):
