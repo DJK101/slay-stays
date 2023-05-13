@@ -40,7 +40,7 @@ def test_book_room_adds_to_csv(bookings, entries):
 
 
 @pytest.mark.parametrize("entries", [['amy', 'double', '2023-09-17'],
-                                     ['rosie', 'suite', '2023-09-17'],])
+                                     ['rosie', 'suite', '2023-09-17'], ])
 def test_book_room_not_booking_same_room_on_same_date(mocker, bookings, entries):
     with open(bookings) as file:
         reader = csv.reader(file)
@@ -55,9 +55,11 @@ def test_book_room_not_booking_same_room_on_same_date(mocker, bookings, entries)
         assert bookings_after[-1] == ['amy', 'double', '2023-09-17']
 
 
-def test_check_bookings(bookings):
-    assert False
-
+@pytest.mark.parametrize("username", ['dj', 'amy'])
+def test_check_bookings_prints_bookings(capsys, bookings, username):
+    cmds.check_bookings(username, bookings)
+    out, err = capsys.readouterr()
+    assert out.find('Success') != -1
 
 def test_change_username():
     assert False
