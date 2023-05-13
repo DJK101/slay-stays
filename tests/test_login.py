@@ -1,6 +1,7 @@
 import pytest
 import app.login as login
 import csv
+from unittest.mock import patch
 
 
 @pytest.fixture
@@ -24,7 +25,21 @@ def test_find_user(users, test_input, expected):
     assert login.find_user(test_input, users) == expected
 
 
-def test_create_user(users):
+@pytest.mark.parametrize("username, password", [('mark', 'secret')])
+def test_create_user_adds_user_to_csv(users, username, password):
+    with open(users, 'r') as file:
+        reader = csv.reader(file)
+        users_before = list(reader)
+        with patch('builtins.print') as mock_print:
+            login.create_user(username, password, users)
+            mock_print.assert_called_once_with(f"Success! Registered user {username} to Slay Stays.")
+        file.seek(0)
+        users_after = list(reader)
+        assert len(users_before) + 1 == len(users_after)
+        assert users_after[-1] == [username, password]
+
+
+def test_create_user_wont_add_duplicate_usernames(users):
     assert False
 
 
