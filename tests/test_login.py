@@ -39,8 +39,18 @@ def test_create_user_adds_user_to_csv(users, username, password):
         assert users_after[-1] == [username, password]
 
 
-def test_create_user_wont_add_duplicate_usernames(users):
-    assert False
+@pytest.mark.parametrize("username, password", [('dj', '1234')])
+def test_create_user_wont_add_duplicate_usernames(users, username, password):
+    with open(users) as file:
+        reader = csv.reader(file)
+        users_before = list(reader)
+        with patch('builtins.print') as mock_print:
+            login.create_user(username, password, users)
+            mock_print.assert_called_once_with(f"Sorry, the username '{username}' is already taken.")
+        file.seek(0)
+        users_after = list(reader)
+        assert len(users_before) == len(users_after)
+
 
 
 @pytest.mark.parametrize("test_input, expected", [('dj', True), ('me', True), ('amy', True)])
