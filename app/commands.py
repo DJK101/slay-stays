@@ -1,9 +1,13 @@
 import csv
 import datetime as dt
+from inspect import getmembers, isfunction
+from app.parser import keywords
 
 
 def help_menu():
-    print("List of commands: ['help', 'book', 'my_bookings', 'change']")
+    functions = getmembers(__import__, isfunction)
+
+    print("List of commands:", keywords)
 
 
 # File parameter so the function can be tested easily
@@ -29,8 +33,21 @@ def book_room(username: str, room: str, date: dt.date, csv_file):
             print("Sorry, that room has already been booked on that date.")
 
 
-
 def check_bookings(username: str, csv_file):
+    with open(csv_file) as file:
+        reader = csv.DictReader(file)
+        bookings = list(reader)
+        user_bookings = []
+        for booking in bookings:
+            if booking['username'] == username:
+                user_bookings.append(f"{booking['room']} booked for {booking['date']}")
+
+        if len(user_bookings) > 0:
+            print("Success! Here are your bookings:\n")
+            for booking in user_bookings:
+                print(booking + "\n")
+        else:
+            print("Sorry, no bookings could be found with your username.")
     pass
 
 

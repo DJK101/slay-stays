@@ -58,8 +58,9 @@ def test_book_room_not_booking_same_room_on_same_date(mocker, bookings, entries)
 @pytest.mark.parametrize("username", ['dj', 'amy'])
 def test_check_bookings_prints_bookings(capsys, bookings, username):
     cmds.check_bookings(username, bookings)
-    out, err = capsys.readouterr()
+    out, err = capsys.readouterr()  # Capture the output to the terminal
     assert out.find('Success') != -1
+
 
 def test_change_username():
     assert False
