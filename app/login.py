@@ -22,7 +22,8 @@ def delete_user(usersDelete: str, file):
 
 
 def create_user(username: str, password: str, file):
-    pass
+    with open(file) as users:
+
 
 
 def check_password(username: str, password: str, csv_file) -> bool:
