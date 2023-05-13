@@ -1,6 +1,6 @@
 import pytest
 from io import StringIO
-from app.login_system import find_user, delete_user, create_user
+import app.login_system as login
 
 
 @pytest.fixture
@@ -13,9 +13,9 @@ def file():
     )
 
 
-@pytest.mark.parametrize("test_input, expected", [('dj', 0), ('me', 1), ('amy', 2)])
+@pytest.mark.parametrize("test_input, expected", [('dj', 0), ('me', 1), ('amy', 2), ('john', -1)])
 def test_find_user(file, test_input, expected):
-    assert find_user(test_input, file) == expected
+    assert login.find_user(test_input, file) == expected
 
 
 def test_create_user(file):
@@ -24,4 +24,8 @@ def test_create_user(file):
 
 @pytest.mark.parametrize("test_input, expected", [('dj', True), ('me', True), ('amy', True)])
 def test_delete_user(file, test_input, expected):
-    assert delete_user(test_input, file) == expected
+    assert login.delete_user(test_input, file) == expected
+
+
+def test_check_password(file):
+    assert login.check_password('dj', '100', file) == True
