@@ -1,6 +1,5 @@
-import os
+from datetime import datetime as dt
 import pytest
-from io import StringIO
 import app.commands as cmds
 import csv
 
@@ -13,7 +12,8 @@ def bookings(tmp_path):
         writer.writerows(
             [
                 ['username', 'room', 'date'],
-                ['dj', 'suite', '2023-09-17']
+                ['dj', 'suite', '2023-09-17'],
+                ['amy', 'double', '2023-09-17']
             ]
         )
     yield csv_file
@@ -21,11 +21,14 @@ def bookings(tmp_path):
 
 def test_book_room(bookings):
     with open(bookings) as file:
-        bookings_before = list(csv.DictReader(file))
-        cmds.book_room('amy', 'suite', '2025-06-18')
-        bookings_after = list(csv.DictReader(file))
+        reader = csv.reader(file)
+        bookings_before = list(reader)
+        file.seek(0)  # Set reader to read from beginning of csv file
+        entries = ['amy', 'suite', dt.strptime('2023-09-17', '%Y-%m-%d')]
+        cmds.book_room(entries[0], entries[1], entries[2], file)
+        bookings_after = list(reader)
         assert len(bookings_before) + 1 == len(bookings_after)
-
+        assert bookings_after[-1] == entries
 
 
 def test_check_bookings():

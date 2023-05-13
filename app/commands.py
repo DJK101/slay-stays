@@ -1,8 +1,13 @@
+import datetime as dt
+
+
 def help_menu():
     print("List of commands: ['help', 'book', 'my_bookings', 'change']")
 
 
-def book_room():
+# File parameter so the function can be tested easily
+def book_room(username: str, room: str, date: dt.date, file):
+    print(username, room, date, file)
     pass
 
 
