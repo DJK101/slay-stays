@@ -14,13 +14,13 @@ class Room:
 # list of available rooms the user can book
 Available_Rooms = [
     # can only book if it's sunny
-    Room('Double', 2, 100),
+    Room('double', 2, 100),
     # can only book if its raining
-    Room('Single', 1, 80),
+    Room('single', 1, 80),
     # can only book if its snowing
-    Room('Family', 4, 150),
+    Room('family', 4, 150),
     # can only book if it's a tuesday
-    Room('Suite', 2, 200),
+    Room('suite', 2, 200),
     # can only book if it's a wednesday
     Room('Penthouse', 6, 300),
     # can only book if it's a birthday
@@ -30,9 +30,9 @@ Available_Rooms = [
     # can only book if it's a birthday
     Room('Superior', 2, 200),
     # can only book if it's a sunny Tuesday
-    Room('Standard', 2, 110),
+    Room('standard', 2, 110),
     # can only book if it's a rainy Wednesday
-    Room('Economy', 1, 90),
+    Room('economy', 1, 90),
 ]
 
 
@@ -76,12 +76,20 @@ def is_snowing_outside():
     return random_bool()
 
 
-def is_tuesday(dt: datetime.datetime) -> bool:
-    return dt.strftime("%A") == "Tuesday"
+def is_tuesday():
+    x = datetime.datetime.now()
+    if x.strftime("%A") == "Tuesday":
+        return True
+    else:
+        return False
 
 
-def is_wednesday(dt: datetime.datetime) -> bool:
-    return dt.strftime("%A") == "Wednesday"
+def is_wednesday():
+    x = datetime.datetime.now()
+    if x.strftime("%A") == "Wednesday":
+        return True
+    else:
+        return False
 
 
 def is_birthday():
