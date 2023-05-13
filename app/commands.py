@@ -13,14 +13,21 @@ def book_room(username: str, room: str, date: dt.date, csv_file):
         reader = csv.DictReader(r_file)
         bookings = list(reader)
         bookings_dates = [booking['date'] for booking in bookings]
-        if date_string in bookings_dates:
-            print("Sorry, that room has already been booked on that date.")
-        else:
+        bookings_rooms = [booking['room'] for booking in bookings]
+        booking_available = True
+        for i in range(0, len(bookings)):
+            if bookings_rooms[i] == room and bookings_dates[i] == date_string:
+                booking_available = False
+
+        if booking_available:
             r_file.close()
             with open(csv_file, 'a', newline='') as w_file:
                 writer = csv.writer(w_file)
                 writer.writerow([username, room, date_string])
                 print(f"Success! Room: {room} booked for {date_string}.")
+        else:
+            print("Sorry, that room has already been booked on that date.")
+
 
 
 def check_bookings(username: str, csv_file):
