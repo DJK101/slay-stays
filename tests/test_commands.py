@@ -35,8 +35,8 @@ def test_book_room_adds_to_csv(bookings, entries):
             mock_print.assert_called_once_with(f"Success! Room: {entries[1]} booked for {entries[2]}.")
         file.seek(0)  # Set reader to read from beginning of csv file
         bookings_after = list(reader)
-        assert len(bookings_before) + 1 == len(bookings_after)  # Check a newline was added to the csv
-        assert bookings_after[-1] == entries  # Checks said line was the correct one
+        assert len(bookings_before) + 1 == len(bookings_after)  # Check a new line was added to the csv
+        assert bookings_after[-1] == entries  # Checks booking was added to the end of the csv
 
 
 @pytest.mark.parametrize("entries", [['amy', 'double', '2023-09-17'],
