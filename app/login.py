@@ -25,7 +25,7 @@ def delete_user(username: str, admin_password: str, file):
     with open(file) as users:
         reader = csv.DictReader(users)
         users_list = list(reader)
-        new_users_list = [user for user in users_list if user['username'] == username]
+        new_users_list = [user for user in users_list if user['username'] != username]
 
     with open(file, 'w', newline='') as users:
         writer = csv.DictWriter(users, ['username', 'password'])
