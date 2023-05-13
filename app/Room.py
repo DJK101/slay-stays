@@ -66,12 +66,20 @@ def is_snowing_outside():
     return random_bool()
 
 
-def is_tuesday(dt: datetime.datetime) -> bool:
-    return dt.strftime("%A") == "Tuesday"
+def is_tuesday():
+    x = datetime.datetime.now()
+    if x.strftime("%A") == "Tuesday":
+        return True
+    else:
+        return False
 
 
-def is_wednesday(dt: datetime.datetime) -> bool:
-    return dt.strftime("%A") == "Wednesday"
+def is_wednesday():
+    x = datetime.datetime.now()
+    if x.strftime("%A") == "Wednesday":
+        return True
+    else:
+        return False
 
 
 def is_birthday():
