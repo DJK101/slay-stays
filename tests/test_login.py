@@ -31,7 +31,7 @@ def test_find_user(file, test_input, expected):
 
 
 @pytest.mark.parametrize("username, password", [('mark', 'secret')])
-def test_create_user_adds_user_to_csv(file, reader, username, password):
+def test_create_user_adds_user_to_csv(file, username, password):
     with open(file, 'r') as users:
         reader = csv.reader(users)
         users_before = list(reader)
@@ -67,8 +67,9 @@ def test_delete_user_removes_user_from_csv(file, admin_password, username, passw
             mock_print.assert_called_once_with(f"Success! Deleted user '{username}' from database.")
         users.seek(0)
         users_after = list(reader)
+        removed_users = [user for user in users_before if user not in users_after]
         assert len(users_before) == len(users_after) + 1
-        assert set(users_before) - set(users_after) == [username, password]
+        assert removed_users == [[username, password]]
 
 
 @pytest.mark.parametrize("username", ['greg', '1', 'True', ''])
@@ -90,8 +91,8 @@ def test_delete_user_fails_when_admin_password_is_incorrect(file, username, wron
         reader = csv.reader(users)
         users_before = list(reader)
         with patch('builtins.print') as mock_print:
-            login.delete_user(username, wrong_password)
-            mock_print.assert_called_once_with(f"Error! The admin password entered was incorrect!")
+            login.delete_user(username, wrong_password, file)
+            mock_print.assert_called_once_with("Error! The admin password entered was incorrect!")
         users.seek(0)
         users_after = list(reader)
         assert users_before == users_after
