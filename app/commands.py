@@ -8,10 +8,19 @@ def help_menu():
 
 # File parameter so the function can be tested easily
 def book_room(username: str, room: str, date: dt.date, csv_file):
-    with open(csv_file, 'a', newline='') as file:
-        writer = csv.writer(file)
-        date_string = date.strftime('%Y-%m-%d')
-        writer.writerow([username, room, date_string])
+    date_string = date.strftime('%Y-%m-%d')
+    with open(csv_file, 'r') as r_file:
+        reader = csv.DictReader(r_file)
+        bookings = list(reader)
+        bookings_dates = [booking['date'] for booking in bookings]
+        if date_string in bookings_dates:
+            print("Sorry, that room has already been booked on that date.")
+        else:
+            r_file.close()
+            with open(csv_file, 'a', newline='') as w_file:
+                writer = csv.writer(w_file)
+                writer.writerow([username, room, date_string])
+                print(f"Success! Room: {room} booked for {date_string}.")
 
 
 def check_bookings(username: str, csv_file):
