@@ -31,7 +31,7 @@ def test_find_user(file, test_input, expected):
 
 
 @pytest.mark.parametrize("username, password", [('mark', 'secret')])
-def test_create_user_adds_user_to_csv(file, username, password):
+def test_create_user_adds_user_to_csv(file, reader, username, password):
     with open(file, 'r') as users:
         reader = csv.reader(users)
         users_before = list(reader)
@@ -71,13 +71,27 @@ def test_delete_user_removes_user_from_csv(file, admin_password, username, passw
         assert set(users_before) - set(users_after) == [username, password]
 
 
+@pytest.mark.parametrize("username", ['greg', '1', 'True', ''])
 def test_delete_user_prints_error_when_username_missing(file, admin_password, username):
     with open(file) as users:
         reader = csv.reader(users)
         users_before = list(reader)
         with patch('builtins.print') as mock_print:
-            login.delete_user(username, admin_password)
+            login.delete_user(username, admin_password, file)
             mock_print.assert_called_once_with(f"Error! No user '{username}' was found.")
+        users.seek(0)
+        users_after = list(reader)
+        assert users_before == users_after
+
+
+@pytest.mark.parametrize("username, wrong_password", [('dj', 'fishy'), ('me', ''), ('amy', 'True')])
+def test_delete_user_fails_when_admin_password_is_incorrect(file, username, wrong_password):
+    with open(file) as users:
+        reader = csv.reader(users)
+        users_before = list(reader)
+        with patch('builtins.print') as mock_print:
+            login.delete_user(username, wrong_password)
+            mock_print.assert_called_once_with(f"Error! The admin password entered was incorrect!")
         users.seek(0)
         users_after = list(reader)
         assert users_before == users_after
