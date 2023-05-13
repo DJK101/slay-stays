@@ -1,6 +1,5 @@
 import app.commands as commands
-
-keywords = ['help', 'book', 'my_bookings', 'change']
+from app.commands import keywords
 
 
 def parse_command(command: str):

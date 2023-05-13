@@ -1,12 +1,10 @@
 import csv
 import datetime as dt
-from inspect import getmembers, isfunction
-from app.parser import keywords
+
+keywords = ['help', 'book', 'my_bookings', 'change', 'quit']
 
 
 def help_menu():
-    functions = getmembers(__import__, isfunction)
-
     print("List of commands:", keywords)
 
 
