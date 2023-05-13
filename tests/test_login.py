@@ -33,5 +33,8 @@ def test_delete_user(users, test_input, expected):
     assert login.delete_user(test_input, users) == expected
 
 
-def test_check_password(users):
-    assert login.check_password('dj', '1234', users)
+@pytest.mark.parametrize("username, password, expected",
+                         [('dj', '1234', True),
+                          ('billy', 'incorrect', False)])
+def test_check_password(users, username, password, expected):
+    assert login.check_password(username, password, users) == expected
