@@ -1,12 +1,13 @@
 import csv
 
 
-def find_user(username: str, file):
+def find_user(username: str, file) -> int:
     users = csv.DictReader(file)
     users = list(users)
     for i in range(0, len(users)):
         if users[i]['username'] == username:
             return i
+    return -1
 
 
 def delete_user(usersDelete: str, file):

@@ -13,7 +13,7 @@ def file():
     )
 
 
-@pytest.mark.parametrize("test_input, expected", [('dj', 0), ('me', 1), ('amy', 2)])
+@pytest.mark.parametrize("test_input, expected", [('dj', 0), ('me', 1), ('amy', 2), ('john', -1)])
 def test_find_user(file, test_input, expected):
     assert login.find_user(test_input, file) == expected
 
