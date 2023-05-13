@@ -52,9 +52,19 @@ def test_create_user_wont_add_duplicate_usernames(file, username, password):
         assert len(users_before) == len(users_after)
 
 
-@pytest.mark.parametrize("test_input, expected", [('dj', True), ('me', True), ('amy', True)])
-def test_delete_user(file, test_input, expected):
-    assert login.delete_user(test_input, file) == expected
+@pytest.mark.parametrize("username, password", [('dj', '1234')])
+def test_delete_user_removes_user_from_csv(file, username, password):
+    admin_password = 'tracworx'
+    with open(file) as users:
+        reader = csv.reader(users)
+        users_before = list(reader)
+        with patch('builtins.print') as mock_print:
+            login.delete_user(username, admin_password, file)
+            mock_print.assert_called_once_with(f"Success! Deleted user '{username}' from database.")
+        users.seek(0)
+        users_after = list(reader)
+        assert len(users_before) == len(users_after) + 1
+        assert set(users_before) - set(users_after) == [username, password]
 
 
 @pytest.mark.parametrize("username, password, expected",

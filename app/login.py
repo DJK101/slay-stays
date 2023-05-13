@@ -13,12 +13,8 @@ def find_user(username: str, file) -> int:
             return -1
 
 
-def delete_user(usersDelete: str, file):
-    users = csv.DictReader(file)
-    users = list(users)
-    for i in range(0, len(users)):
-        if users[i]['username'] == usersDelete:
-            return True
+def delete_user(username: str, admin_password: str, file):
+    pass
 
 
 def create_user(username: str, password: str, file):
@@ -33,7 +29,6 @@ def create_user(username: str, password: str, file):
         writer = csv.writer(users)
         writer.writerow([username, password])
         print(f"Success! Registered user {username} to Slay Stays.")
-
 
 
 def check_password(username: str, password: str, csv_file) -> bool:
