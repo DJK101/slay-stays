@@ -22,13 +22,13 @@ Available_Rooms = [
     # can only book if it's a tuesday
     Room('suite', 2, 200),
     # can only book if it's a wednesday
-    Room('penthouse', 6, 300),
-    # can only book if it's my birthday
-    Room('presidential', 4, 500),
-    # can only book if it's Rosie's birthday
-    Room('deluxe', 2, 250),
-    # can only book if it's DJ's birthday
-    Room('superior', 2, 200),
+    Room('Penthouse', 6, 300),
+    # can only book if it's a birthday
+    Room('Presidential', 4, 500),
+    # can only book if it's a birthday
+    Room('Deluxe', 2, 250),
+    # can only book if it's a birthday
+    Room('Superior', 2, 200),
     # can only book if it's a sunny Tuesday
     Room('standard', 2, 110),
     # can only book if it's a rainy Wednesday
