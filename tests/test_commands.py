@@ -69,6 +69,7 @@ def test_check_bookings_prints_error_if_no_bookings_found(capsys, bookings, user
     assert out.find('Sorry') != -1
 
 
+@pytest.mark.parametrize("username, new_username", [('brenda', 'billy'), ('tiffany', 't-dawg'), ('blair', 'flair')])
 def test_change_username(username, new_username):
     cmds.change_username(username, new_username)
     assert username == new_username
