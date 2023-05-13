@@ -41,7 +41,7 @@ def test_book_room_adds_to_csv(bookings, entries):
 
 @pytest.mark.parametrize("entries", [['amy', 'double', '2023-09-17'],
                                      ['rosie', 'suite', '2023-09-17'], ])
-def test_book_room_not_booking_same_room_on_same_date(mocker, bookings, entries):
+def test_book_room_not_booking_same_room_on_same_date(bookings, entries):
     with open(bookings) as file:
         reader = csv.reader(file)
         bookings_before = list(reader)
@@ -60,6 +60,13 @@ def test_check_bookings_prints_bookings(capsys, bookings, username):
     cmds.check_bookings(username, bookings)
     out, err = capsys.readouterr()  # Capture the output to the terminal
     assert out.find('Success') != -1
+
+
+@pytest.mark.parametrize("username", ['john', 'mark', 'eoin'])
+def test_check_bookings_prints_error_if_no_bookings_found(capsys, bookings, username):
+    cmds.check_bookings(username, bookings)
+    out, err = capsys.readouterr()  # Capture the output to the terminal
+    assert out.find('Sorry') != -1
 
 
 def test_change_username():
