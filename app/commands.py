@@ -12,10 +12,9 @@ def book_room(username: str, room: str, date: dt.date, csv_file):
         writer = csv.writer(file)
         date_string = date.strftime('%Y-%m-%d')
         writer.writerow([username, room, date_string])
-    pass
 
 
-def check_bookings():
+def check_bookings(username: str, csv_file):
     pass
 
 
