@@ -1,15 +1,15 @@
 import datetime
 import pytest
 from app.Room import random_bool, is_sunny_outside, is_raining_outside, is_snowing_outside, is_tuesday, \
-    is_wednesday, is_birthday, find_room, find_price, find_capacity
+    is_wednesday, is_birthday, get_room, find_price, find_capacity, can_book_room
 from freezegun import freeze_time
 from datetime import datetime as dt
 
 
 @pytest.mark.parametrize("name, capacity, price",
                          [('Deluxe', 2, 250), ('Superior', 2, 200), ('Standard', 2, 110), ('Economy', 1, 90)])
-def test_find_room(name, capacity, price):
-    room = find_room(name)
+def test_get_room(name, capacity, price):
+    room = get_room(name)
     assert room is not None if capacity or price else None
 
 
@@ -72,3 +72,9 @@ def test_is_wednesday(date, expected):
 @freeze_time("2021-07-23")
 def test_is_birthday():
     assert is_birthday()
+
+
+@pytest.mark.parametrize("room, result, expected", [
+    ("Double", False, False), ("Double", True, True), ("Double", False, False), ("Double", True, True)])
+def test_can_book_room(room, result, expected):
+    assert can_book_room(room, result) == expected
