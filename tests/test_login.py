@@ -103,3 +103,12 @@ def test_delete_user_fails_when_admin_password_is_incorrect(file, username, wron
                           ('billy', 'incorrect', False)])
 def test_check_password(file, username, password, expected):
     assert login.check_password(username, password, file) == expected
+
+
+@pytest.mark.parametrize("username, password", [('dj', '1234'),
+                                                ('me', 'pwd'),
+                                                ('amy', 'drummer')])
+def test_login_returns_username_on_valid_login(username, password):
+    with patch('builtins.input', side_effect=[username, password]) as mock_input:
+        returned_username = login.login()
+        assert returned_username == username
