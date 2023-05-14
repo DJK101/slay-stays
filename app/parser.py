@@ -9,5 +9,5 @@ def parse_command(command: str):
         commands.help_menu()
     elif command == keywords[1]:
         commands.shut_down()
-    elif command == keywords[2]:
-        pass
+    else:
+        print(f"Sorry, the statement {command} is not a recognised entry.")
