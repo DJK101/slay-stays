@@ -49,6 +49,10 @@ def check_bookings(username: str, csv_file):
     pass
 
 
+def is_valid_username(new_username):
+    pass
+
+
 def change_username(users_csv_file, old_username, new_username):
     with open(users_csv_file, mode='r') as users:
         reader = csv.DictReader(users)

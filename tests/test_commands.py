@@ -36,6 +36,7 @@ def users(tmp_path):
         )
     yield csv_file
 
+
 @pytest.mark.parametrize("entries", [['amy', 'suite', '2023-09-10'],
                                      ['rosie', 'double', '2024-07-01'],
                                      ['john', 'single', '2024-11-05'],
@@ -85,6 +86,12 @@ def test_check_bookings_prints_error_if_no_bookings_found(capsys, bookings, user
     assert out.find('Sorry') != -1
 
 
+@pytest.mark.parametrize("new_username, expected",
+                         [('dj', True), ('', False), ('nonphotosynthetic', False), ('rosie*kennelly', True)])
+def test_is_valid_username(new_username, expected):
+    assert cmds.is_valid_username(new_username) == expected
+
+
 @pytest.mark.parametrize("old_username, new_username", [('dj', 'billy'), ('rosie', 't-dawg'), ('blair', 'flair')])
 def test_change_username(users, old_username, new_username):
     with open(users) as file:
@@ -97,7 +104,6 @@ def test_change_username(users, old_username, new_username):
         next(reader)
         new_users_list = list(reader)
         assert new_users_list[user_index]['username'] == new_username
-
 
 
 @pytest.mark.parametrize("old_username, new_username",
