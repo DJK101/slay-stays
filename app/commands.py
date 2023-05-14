@@ -55,7 +55,12 @@ def is_valid_username(new_username):
     # valid usernames are between 2-16 characters long.
     # valid usernames only contain ALPHAnumeric characters and underscores.
     pattern = r"^[a-zA-Z0-9_]{2,16}$"
-    return bool(re.match(pattern, new_username))
+    if bool(re.match(pattern, new_username)):
+        return True
+    else:
+        print("Sorry, usernames must be within 2-16 characters; "
+              "and only contain letters, numbers, and underscores")
+        return False
 
 
 def change_username(users_csv_file, old_username, new_username):
