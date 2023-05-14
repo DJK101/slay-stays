@@ -20,6 +20,22 @@ def bookings(tmp_path):
     yield csv_file
 
 
+@pytest.fixture
+def users(tmp_path):
+    csv_file = tmp_path / 'users_test.csv'
+    with open(csv_file, 'w', newline='') as users:
+        writer = csv.writer(users)
+        writer.writerows(
+            [
+                ['username', 'password'],
+                ['dj', 'kachow'],
+                ['rosie', 'herder'],
+                ['blair', 'rowenah8club'],
+                ['amy', 'mutmut4lyfe'],
+            ]
+        )
+    yield csv_file
+
 @pytest.mark.parametrize("entries", [['amy', 'suite', '2023-09-10'],
                                      ['rosie', 'double', '2024-07-01'],
                                      ['john', 'single', '2024-11-05'],
@@ -69,7 +85,7 @@ def test_check_bookings_prints_error_if_no_bookings_found(capsys, bookings, user
     assert out.find('Sorry') != -1
 
 
-@pytest.mark.parametrize("old_username, new_username", [('brenda', 'billy'), ('tiffany', 't-dawg'), ('blair', 'flair')])
+@pytest.mark.parametrize("users, old_username, new_username", [('brenda', 'billy'), ('tiffany', 't-dawg'), ('blair', 'flair')])
 def test_change_username(old_username, new_username):
     cmds.change_username(old_username, new_username)
     assert old_username == new_username
