@@ -56,15 +56,15 @@ def test_book_room_not_booking_same_room_on_same_date(bookings, entries):
 
 
 @pytest.mark.parametrize("username", ['dj', 'amy'])
-def test_check_bookings_prints_bookings(capsys, bookings, username):
-    cmds.check_bookings(username, bookings)
+def test_print_bookings_prints_bookings(capsys, bookings, username):
+    cmds.print_bookings(username, bookings)
     out, err = capsys.readouterr()  # Capture the output to the terminal
     assert out.find('Success') != -1
 
 
 @pytest.mark.parametrize("username", ['john', 'mark', 'eoin'])
-def test_check_bookings_prints_error_if_no_bookings_found(capsys, bookings, username):
-    cmds.check_bookings(username, bookings)
+def test_print_bookings_prints_error_if_no_bookings_found(capsys, bookings, username):
+    cmds.print_bookings(username, bookings)
     out, err = capsys.readouterr()  # Capture the output to the terminal
     assert out.find('Sorry') != -1
 

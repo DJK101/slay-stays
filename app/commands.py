@@ -32,7 +32,7 @@ def book_room(username: str, room: str, date: dt.date, csv_file):
             print("Sorry, that room has already been booked on that date.")
 
 
-def check_bookings(username: str, csv_file):
+def print_bookings(username: str, csv_file):
     with open(csv_file) as file:
         reader = csv.DictReader(file)
         bookings = list(reader)
