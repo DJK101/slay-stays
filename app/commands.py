@@ -1,16 +1,24 @@
 import csv
 import datetime as dt
 import re
+import sys
+import app.login as login
 
-keywords = ['help', 'book', 'my_bookings', 'change', 'quit']
+keywords = ['help', 'quit', 'register', 'book', 'my_bookings', 'change']
 
 
 def help_menu():
     print("List of commands:", keywords)
 
 
-# File parameter so the function can be tested easily
-def book_room(username: str, room: str, date: dt.date, csv_file):
+def register_user():
+    print("Registration for Slay Stays:")
+    username = input("Please enter a username: ")
+    password = input("Please enter a password: ")
+    login.create_user(username, password)
+
+
+def book_room(username: str, room: str, date: dt.date, csv_file='bookings.csv'):
     date_string = date.strftime('%Y-%m-%d')
     with open(csv_file, 'r') as r_file:
         reader = csv.DictReader(r_file)
@@ -32,7 +40,7 @@ def book_room(username: str, room: str, date: dt.date, csv_file):
             print("Sorry, that room has already been booked on that date.")
 
 
-def check_bookings(username: str, csv_file):
+def print_bookings(username: str, csv_file):
     with open(csv_file) as file:
         reader = csv.DictReader(file)
         bookings = list(reader)
@@ -81,9 +89,5 @@ def change_username(users_csv_file, old_username, new_username):
     print(f"Success! User '{old_username}' has been updated to '{new_username}' in the CSV file.")
 
 
-def change_password():
-    pass
-
-
 def shut_down():
-    pass
+    sys.exit()
