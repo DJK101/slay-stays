@@ -93,14 +93,9 @@ def test_change_password():
     assert False
 
 
-def test_register_user_calls_create_user():
-    with patch('login.create_user') as mock_create_user:
-        cmds.register_user()
-        mock_create_user.assert_called_once()
-
-
-def test_register_user_passes_correct_inputs():
-    with patch('builtins.input') as mock_input:
-        with patch('login.create_user') as mock_create_user:
-            mock_input.side_effect = ['wow', 'pwd']
-            mock_create_user.assert_called_once_with('wow', 'pwd')
+@pytest.mark.parametrize("username, password", [('johnny', 'safe')])
+def test_register_user_passes_correct_inputs(username, password):
+    with patch('builtins.input', side_effect=[username, password]) as mock_input:
+        with patch('app.login.create_user') as mock_create_user:
+            cmds.register_user()
+            mock_create_user.assert_called_once_with(username, password)
