@@ -1,16 +1,20 @@
 import csv
 import datetime as dt
 import sys
+import login
 
-keywords = ['help', 'quit', 'book', 'my_bookings', 'change']
+keywords = ['help', 'quit', 'register', 'book', 'my_bookings', 'change']
 
 
 def help_menu():
     print("List of commands:", keywords)
 
 
-# File parameter so the function can be tested easily
-def book_room(username: str, room: str, date: dt.date, csv_file):
+def register_user(username: str, password: str):
+    login.create_user(username, password)
+
+
+def book_room(username: str, room: str, date: dt.date, csv_file='bookings.csv'):
     date_string = date.strftime('%Y-%m-%d')
     with open(csv_file, 'r') as r_file:
         reader = csv.DictReader(r_file)

@@ -2,7 +2,7 @@ import csv
 
 
 # Returns index of username in the database. First user at index 0
-def find_user(username: str, file) -> int:
+def find_user(username: str, file = 'users.csv') -> int:
     with open(file) as users:
         reader = csv.DictReader(users)
         users = list(reader)
