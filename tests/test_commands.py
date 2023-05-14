@@ -56,15 +56,15 @@ def test_book_room_not_booking_same_room_on_same_date(bookings, entries):
 
 
 @pytest.mark.parametrize("username", ['dj', 'amy'])
-def test_check_bookings_prints_bookings(capsys, bookings, username):
-    cmds.check_bookings(username, bookings)
+def test_print_bookings_prints_bookings(capsys, bookings, username):
+    cmds.print_bookings(username, bookings)
     out, err = capsys.readouterr()  # Capture the output to the terminal
     assert out.find('Success') != -1
 
 
 @pytest.mark.parametrize("username", ['john', 'mark', 'eoin'])
-def test_check_bookings_prints_error_if_no_bookings_found(capsys, bookings, username):
-    cmds.check_bookings(username, bookings)
+def test_print_bookings_prints_error_if_no_bookings_found(capsys, bookings, username):
+    cmds.print_bookings(username, bookings)
     out, err = capsys.readouterr()  # Capture the output to the terminal
     assert out.find('Sorry') != -1
 
@@ -81,11 +81,21 @@ def test_check_change_username_prints_success_msg(capsys, username, new_username
     out, err = capsys.readouterr()  # Capture the output to the terminal
     assert out.find('Success') != -1
 
+
 @pytest.mark.parametrize("username, new_username", [('brian', ''), ('gwen', 'gwen'), ('angelica', 'angel')])
 def test_check_change_username_prints_error_msg(capsys, username, new_username):
     cmds.change_username(username, new_username)
     out, err = capsys.readouterr()  # Capture the output to the terminal
     assert out.find('Sorry') != -1
 
+
 def test_change_password():
     assert False
+
+
+@pytest.mark.parametrize("username, password", [('johnny', 'safe')])
+def test_register_user_passes_correct_inputs(username, password):
+    with patch('builtins.input', side_effect=[username, password]):
+        with patch('app.login.create_user') as mock_create_user:
+            cmds.register_user()
+            mock_create_user.assert_called_once_with(username, password)
