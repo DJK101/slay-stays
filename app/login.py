@@ -35,9 +35,6 @@ def delete_user(username: str, admin_password: str, file):
     print(f"Success! Deleted user '{username}' from database.")
 
 
-
-
-
 def create_user(username: str, password: str, file):
     with open(file) as users:
         reader = csv.DictReader(users)
