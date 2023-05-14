@@ -116,10 +116,10 @@ def test_change_username(users, old_username, new_username):
 
 @pytest.mark.parametrize("old_username, new_username",
                          [('stacey', 'stace'), ('yuri', 'connor'), ('eliza', 'elizabeth')])
-def test_check_change_username_prints_success_msg(capsys, old_username, new_username):
-    cmds.change_username(old_username, new_username)
+def test_check_change_username_prints_success_msg(capsys, users, old_username, new_username):
+    cmds.change_username(users, old_username, new_username)
     out, err = capsys.readouterr()  # Capture the output to the terminal
-    assert out.find('Success') != -1 and old_username == new_username
+    assert out.find('Success') != -1
 
 
 def test_change_password():
