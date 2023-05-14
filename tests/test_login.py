@@ -109,6 +109,6 @@ def test_check_password(file, username, password, expected):
                                                 ('me', 'pwd'),
                                                 ('amy', 'drummer')])
 def test_login_returns_username_on_valid_login(username, password):
-    with patch('builtins.input', side_effect=[username, password]) as mock_input:
+    with patch('builtins.input', side_effect=[username, password]):
         returned_username = login.login()
         assert returned_username == username

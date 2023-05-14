@@ -95,7 +95,7 @@ def test_change_password():
 
 @pytest.mark.parametrize("username, password", [('johnny', 'safe')])
 def test_register_user_passes_correct_inputs(username, password):
-    with patch('builtins.input', side_effect=[username, password]) as mock_input:
+    with patch('builtins.input', side_effect=[username, password]):
         with patch('app.login.create_user') as mock_create_user:
             cmds.register_user()
             mock_create_user.assert_called_once_with(username, password)

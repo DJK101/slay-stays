@@ -1,8 +1,9 @@
 import csv
 
+
 # Runs login screen. Returns username of logged-in user
 def login() -> str:
-
+    pass
 
 
 # Returns index of username in the database. First user at index 0
