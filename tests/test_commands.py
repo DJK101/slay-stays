@@ -91,3 +91,16 @@ def test_check_change_username_prints_error_msg(capsys, username, new_username):
 
 def test_change_password():
     assert False
+
+
+def test_register_user_calls_create_user():
+    with patch('login.create_user') as mock_create_user:
+        cmds.register_user()
+        mock_create_user.assert_called_once()
+
+
+def test_register_user_passes_correct_inputs():
+    with patch('builtins.input') as mock_input:
+        with patch('login.create_user') as mock_create_user:
+            mock_input.side_effect = ['wow', 'pwd']
+            mock_create_user.assert_called_once_with('wow', 'pwd')
