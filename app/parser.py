@@ -7,3 +7,7 @@ def parse_command(command: str):
     command = command.strip().lower()
     if command == keywords[0]:
         commands.help_menu()
+    elif command == keywords[1]:
+        commands.shut_down()
+    elif command == keywords[2]:
+        pass

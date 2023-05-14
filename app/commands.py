@@ -1,7 +1,8 @@
 import csv
 import datetime as dt
+import sys
 
-keywords = ['help', 'book', 'my_bookings', 'change', 'quit']
+keywords = ['help', 'quit', 'book', 'my_bookings', 'change']
 
 
 def help_menu():
@@ -58,4 +59,4 @@ def change_password():
 
 
 def shut_down():
-    pass
+    sys.exit()
