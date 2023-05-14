@@ -2,7 +2,7 @@ import csv
 
 
 # Runs login screen. Returns username of logged-in user
-def login() -> str:
+def login(csv_file='app/users.csv') -> str:
     pass
 
 

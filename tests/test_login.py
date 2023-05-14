@@ -108,7 +108,7 @@ def test_check_password(file, username, password, expected):
 @pytest.mark.parametrize("username, password", [('dj', '1234'),
                                                 ('me', 'pwd'),
                                                 ('amy', 'drummer')])
-def test_login_returns_username_on_valid_login(username, password):
+def test_login_returns_username_on_valid_login(file, username, password):
     with patch('builtins.input', side_effect=[username, password]):
-        returned_username = login.login()
+        returned_username = login.login(file)
         assert returned_username == username
