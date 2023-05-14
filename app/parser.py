@@ -10,6 +10,6 @@ def parse_command(command: str, username: str):
     elif command == keywords[1]:
         cmds.shut_down()
     elif command == keywords[2]:
-        cmds.re
+        cmds.register_user()
     else:
         print(f"Sorry, the statement {command} is not a recognised entry.")

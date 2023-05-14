@@ -2,7 +2,7 @@ import csv
 
 
 # Returns index of username in the database. First user at index 0
-def find_user(username: str, file = 'users.csv') -> int:
+def find_user(username: str, file='users.csv') -> int:
     with open(file) as users:
         reader = csv.DictReader(users)
         users = list(reader)
@@ -35,7 +35,7 @@ def delete_user(username: str, admin_password: str, file):
     print(f"Success! Deleted user '{username}' from database.")
 
 
-def create_user(username: str, password: str, file):
+def create_user(username: str, password: str, file='users.csv'):
     with open(file) as users:
         reader = csv.DictReader(users)
         usernames = [user['username'] for user in list(reader)]
