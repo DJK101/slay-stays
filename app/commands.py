@@ -61,9 +61,5 @@ def change_username():
     pass
 
 
-def change_password():
-    pass
-
-
 def shut_down():
     sys.exit()

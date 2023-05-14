@@ -89,10 +89,6 @@ def test_check_change_username_prints_error_msg(capsys, username, new_username):
     assert out.find('Sorry') != -1
 
 
-def test_change_password():
-    assert False
-
-
 @pytest.mark.parametrize("username, password", [('johnny', 'safe')])
 def test_register_user_passes_correct_inputs(username, password):
     with patch('builtins.input', side_effect=[username, password]):
