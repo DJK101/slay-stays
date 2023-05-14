@@ -93,6 +93,13 @@ def test_is_valid_username(new_username, expected):
     assert cmds.is_valid_username(new_username) == expected
 
 
+@pytest.mark.parametrize("new_username", ['!brian!', 'gw$-en', 'cringe_lord--£'])
+def test_is_valid_username_prints_error_msg(capsys, new_username):
+    cmds.is_valid_username(new_username)
+    out, err = capsys.readouterr()  # Capture the output to the terminal
+    assert out.find('Sorry') != -1
+
+
 @pytest.mark.parametrize("old_username, new_username", [('dj', 'billy'), ('rosie', 't-dawg'), ('blair', 'flair')])
 def test_change_username(users, old_username, new_username):
     with open(users) as file:
