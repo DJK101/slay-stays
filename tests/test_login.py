@@ -113,12 +113,6 @@ def test_login_returns_username_on_valid_login(file, username, password):
         assert login.login(file) == username
 
 
-@pytest.mark.parametrize("username, password", [('wrong', 'input')])
-def test_login_never_returns_on_invalid_input(file, username, password):
-    with patch('builtins.input', side_effect=[username, password]):
-        assert login.login(file) is None
-
-
 @pytest.mark.parametrize("usernames, password", [(['a', 'b', 'dj'], '1234')])
 def test_login_allows_for_multiple_username_entries(file, usernames, password):
     for username in usernames:
@@ -127,17 +121,19 @@ def test_login_allows_for_multiple_username_entries(file, usernames, password):
                 assert login.login(file) == username
         else:
             with patch('builtins.input', side_effect=username) as mock_input:
+                login.login(file)
                 mock_input.assert_called_once_with(
-                    f"Sorry, the username {username} couldn't be found. Please try again:")
+                    f"Sorry, the username {username} couldn't be found. Please try again: ")
 
 
 @pytest.mark.parametrize("username, passwords", [('dj', ['a', 'b', 'c', '1234'])])
-def test_login_allows_for_multiple_username_entries(file, username, passwords):
+def test_login_allows_for_multiple_password_entries(file, username, passwords):
     for password in passwords:
         if password == passwords[-1]:
             with patch('builtins.input', side_effect=[username, password]):
                 assert login.login(file) == username
         else:
             with patch('builtins.input', side_effect=username) as mock_input:
+                login.login(file)
                 mock_input.assert_called_once_with(
-                    f"Sorry, the username {username} couldn't be found. Please try again:")
+                    "Sorry, the password entered was incorrect. Please try again: ")
