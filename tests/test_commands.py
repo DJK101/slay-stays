@@ -87,7 +87,8 @@ def test_check_bookings_prints_error_if_no_bookings_found(capsys, bookings, user
 
 
 @pytest.mark.parametrize("new_username, expected",
-                         [('dj', True), ('', False), ('nonphotosynthetic', False), ('rosie*kennelly', True)])
+                         [('dj', True), ('_rosie_kennelly_', True), ('M1TSK11114EVA', True), ('', False),
+                          ('a', False), ('nonphotosynthetic', False), ('$money*bags!', False)])
 def test_is_valid_username(new_username, expected):
     assert cmds.is_valid_username(new_username) == expected
 
