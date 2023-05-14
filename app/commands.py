@@ -1,7 +1,7 @@
 import csv
 import datetime as dt
 import sys
-import login
+import app.login as login
 
 keywords = ['help', 'quit', 'register', 'book', 'my_bookings', 'change']
 
@@ -10,7 +10,10 @@ def help_menu():
     print("List of commands:", keywords)
 
 
-def register_user(username: str, password: str):
+def register_user():
+    print("Registration for Slay Stays:")
+    username = input("Please enter a username: ")
+    password = input("Please enter a password: ")
     login.create_user(username, password)
 
 
