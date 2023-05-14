@@ -18,3 +18,10 @@ def test_calling_quit_closes_application():
     with patch('sys.exit') as mock_exit:
         parse_command('quit')
         mock_exit.assert_called_once()
+
+
+@pytest.mark.parametrize("invalid_command", ['something', 'wow', 'ugh'])
+def test_parse_command_prints_error_to_invalid_command(invalid_command):
+    with patch('builtins.print') as mock_print:
+        parse_command(invalid_command)
+        mock_print.assert_called_once_with(f"Sorry, the statement {invalid_command} is not a recognised entry.")
