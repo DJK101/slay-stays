@@ -49,8 +49,22 @@ def check_bookings(username: str, csv_file):
     pass
 
 
-def change_username():
-    pass
+def change_username(users_csv_file, old_username, new_username):
+    with open(users_csv_file, mode='r') as users:
+        reader = csv.DictReader(users)
+        data = [row for row in reader]
+
+    for user in data:
+        if user['username'] == old_username:
+            user['username'] = new_username
+
+    with open(users_csv_file, mode='w', newline='') as csvfile:
+        fieldnames = ['username', 'password']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(data)
+
+    print(f"Success! User '{old_username}' has been updated to '{new_username}' in the CSV file.")
 
 
 def change_password():
