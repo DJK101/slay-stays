@@ -54,7 +54,7 @@ def create_user(username: str, password: str, file='app/users.csv'):
             print(f"Sorry, the username '{username}' is already taken.")
             return
 
-    with open(file, 'a', newline='') as users:
+    with open(file, 'a', newline='\n') as users:
         writer = csv.writer(users)
         writer.writerow([username, password])
         print(f"Success! Registered user {username} to Slay Stays.")
