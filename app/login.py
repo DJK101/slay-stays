@@ -3,7 +3,13 @@ import csv
 
 # Runs login screen. Returns username of logged-in user
 def login(csv_file='app/users.csv') -> str:
-    pass
+    username = input("Please enter your username: ")
+    while find_user(username, csv_file) == -1:
+        username = input(f"Sorry, the username {username} couldn't be found. Please try again: ")
+    pwd = input(f"Please enter the password for {username}: ")
+    while not check_password(username, pwd, csv_file):
+        pwd = input("Sorry, the password entered was incorrect. Please try again: ")
+    return username
 
 
 # Returns index of username in the database. First user at index 0
