@@ -112,3 +112,11 @@ def test_login_returns_username_on_valid_login(file, username, password):
     with patch('builtins.input', side_effect=[username, password]):
         returned_username = login.login(file)
         assert returned_username == username
+
+
+@pytest.mark.parametrize("username, password", [('wrong', 'input')])
+def test_login_never_returns_on_invalid_input(file, username, password):
+    with patch('builtins.input', side_effect=[username, password]):
+        assert login.login(file) is None
+
+
