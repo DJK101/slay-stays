@@ -1,5 +1,6 @@
 import csv
 import datetime as dt
+import re
 
 keywords = ['help', 'book', 'my_bookings', 'change', 'quit']
 
@@ -50,7 +51,11 @@ def check_bookings(username: str, csv_file):
 
 
 def is_valid_username(new_username):
-    pass
+    # returns true if username is valid.
+    # valid usernames are between 2-16 characters long.
+    # valid usernames only contain ALPHAnumeric characters and underscores.
+    pattern = r"^[a-zA-Z0-9_]{2,16}$"
+    return bool(re.match(pattern, new_username))
 
 
 def change_username(users_csv_file, old_username, new_username):
