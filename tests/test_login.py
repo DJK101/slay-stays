@@ -32,7 +32,7 @@ def test_find_user(file, test_input, expected):
 
 @pytest.mark.parametrize("username, password", [('mark', 'secret')])
 def test_create_user_adds_user_to_csv(file, username, password):
-    with open(file, 'r') as users:
+    with open(file) as users:
         reader = csv.reader(users)
         users_before = list(reader)
         with patch('builtins.print') as mock_print:
