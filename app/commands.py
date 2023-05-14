@@ -1,5 +1,6 @@
 import csv
 import datetime as dt
+import re
 import sys
 import app.login as login
 
@@ -57,8 +58,35 @@ def print_bookings(username: str, csv_file):
     pass
 
 
-def change_username():
-    pass
+def is_valid_username(new_username):
+    # returns true if username is valid.
+    # valid usernames are between 2-16 characters long.
+    # valid usernames only contain ALPHAnumeric characters and underscores.
+    pattern = r"^[a-zA-Z0-9_]{2,16}$"
+    if bool(re.match(pattern, new_username)):
+        return True
+    else:
+        print("Sorry, usernames must be within 2-16 characters; "
+              "and only contain letters, numbers, and underscores")
+        return False
+
+
+def change_username(users_csv_file, old_username, new_username):
+    with open(users_csv_file, mode='r') as users:
+        reader = csv.DictReader(users)
+        data = [row for row in reader]
+
+    for user in data:
+        if user['username'] == old_username:
+            user['username'] = new_username
+
+    with open(users_csv_file, mode='w', newline='') as csvfile:
+        fieldnames = ['username', 'password']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(data)
+
+    print(f"Success! User '{old_username}' has been updated to '{new_username}' in the CSV file.")
 
 
 def shut_down():

@@ -20,6 +20,23 @@ def bookings(tmp_path):
     yield csv_file
 
 
+@pytest.fixture
+def users(tmp_path):
+    csv_file = tmp_path / 'users_test.csv'
+    with open(csv_file, 'w', newline='') as users:
+        writer = csv.writer(users)
+        writer.writerows(
+            [
+                ['username', 'password'],
+                ['dj', 'kachow'],
+                ['rosie', 'herder'],
+                ['blair', 'rowenah8club'],
+                ['amy', 'mutmut4lyfe'],
+            ]
+        )
+    yield csv_file
+
+
 @pytest.mark.parametrize("entries", [['amy', 'suite', '2023-09-10'],
                                      ['rosie', 'double', '2024-07-01'],
                                      ['john', 'single', '2024-11-05'],
@@ -69,24 +86,45 @@ def test_print_bookings_prints_error_if_no_bookings_found(capsys, bookings, user
     assert out.find('Sorry') != -1
 
 
-@pytest.mark.parametrize("username, new_username", [('brenda', 'billy'), ('tiffany', 't-dawg'), ('blair', 'flair')])
-def test_change_username(username, new_username):
-    cmds.change_username(username, new_username)
-    assert username == new_username
+@pytest.mark.parametrize("new_username, expected",
+                         [('dj', True), ('_rosie_kennelly_', True), ('M1TSK11114EVA', True), ('', False),
+                          ('a', False), ('nonphotosynthetic', False), ('$money*bags!', False)])
+def test_is_valid_username(new_username, expected):
+    assert cmds.is_valid_username(new_username) == expected
 
 
-@pytest.mark.parametrize("username, new_username", [('stacey', 'stace'), ('yuri', 'connor'), ('eliza', 'elizabeth')])
-def test_check_change_username_prints_success_msg(capsys, username, new_username):
-    cmds.change_username(username, new_username)
+@pytest.mark.parametrize("new_username", ['!brian!', 'gw$-en', 'cringe_lord--£'])
+def test_is_valid_username_prints_error_msg(capsys, new_username):
+    cmds.is_valid_username(new_username)
     out, err = capsys.readouterr()  # Capture the output to the terminal
-    assert out.find('Success') != -1
+    assert out.find('Sorry') != -1
 
+
+@pytest.mark.parametrize("old_username, new_username", [('dj', 'billy'), ('rosie', 't-dawg'), ('blair', 'flair')])
+def test_change_username(users, old_username, new_username):
+    with open(users) as file:
+        reader = csv.DictReader(file)
+        users_list = list(reader)
+        usernames = [user['username'] for user in users_list]
+        user_index = usernames.index(old_username)
+        cmds.change_username(users, old_username, new_username)
+        file.seek(0)
+        next(reader)
+        new_users_list = list(reader)
+        assert new_users_list[user_index]['username'] == new_username
+
+
+@pytest.mark.parametrize("old_username, new_username",
+                         [('stacey', 'stace'), ('yuri', 'connor'), ('eliza', 'elizabeth')])
+def test_check_change_username_prints_success_msg(capsys, users, old_username, new_username):
+    cmds.change_username(users, old_username, new_username)
 
 @pytest.mark.parametrize("username, new_username", [('brian', ''), ('gwen', 'gwen'), ('angelica', 'angel')])
 def test_check_change_username_prints_error_msg(capsys, username, new_username):
     cmds.change_username(username, new_username)
     out, err = capsys.readouterr()  # Capture the output to the terminal
-    assert out.find('Sorry') != -1
+    assert out.find('Success') != -1
+
 
 
 @pytest.mark.parametrize("username, password", [('johnny', 'safe')])
