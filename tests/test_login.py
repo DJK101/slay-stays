@@ -1,7 +1,7 @@
 import pytest
 import app.login as login
 import csv
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 
 @pytest.fixture
@@ -113,27 +113,19 @@ def test_login_returns_username_on_valid_login(file, username, password):
         assert login.login(file) == username
 
 
-@pytest.mark.parametrize("usernames, password", [(['a', 'b', 'dj'], '1234')])
-def test_login_allows_for_multiple_username_entries(file, usernames, password):
-    for username in usernames:
-        if username == usernames[-1]:
-            with patch('builtins.input', side_effect=[username, password]):
-                assert login.login(file) == username
-        else:
-            with patch('builtins.input', side_effect=username) as mock_input:
-                login.login(file)
-                mock_input.assert_called_once_with(
-                    f"Sorry, the username {username} couldn't be found. Please try again: ")
+@pytest.mark.parametrize("incorrect_usernames, correct_username, password", [(['a', 'b', 'c', 'd'], 'dj', '1234'),
+                                                                             ])
+def test_login_allows_for_multiple_username_entries(file, incorrect_usernames, correct_username, password):
+    side_effects = incorrect_usernames + [correct_username, password]
+    with patch('builtins.input') as mock_input:
+        mock_input.side_effect = side_effects
+        assert correct_username == login.login(file)
 
 
-@pytest.mark.parametrize("username, passwords", [('dj', ['a', 'b', 'c', '1234'])])
-def test_login_allows_for_multiple_password_entries(file, username, passwords):
-    for password in passwords:
-        if password == passwords[-1]:
-            with patch('builtins.input', side_effect=[username, password]):
-                assert login.login(file) == username
-        else:
-            with patch('builtins.input', side_effect=username) as mock_input:
-                login.login(file)
-                mock_input.assert_called_once_with(
-                    "Sorry, the password entered was incorrect. Please try again: ")
+@pytest.mark.parametrize("incorrect_passwords, username, correct_password", [(['a', 'b', 'c', 'd'], 'dj', '1234'),
+                                                                             ])
+def test_login_allows_for_multiple_password_entries(file, incorrect_passwords, username, correct_password):
+    side_effects = [username] + incorrect_passwords + [correct_password]
+    with patch('builtins.input') as mock_input:
+        mock_input.side_effect = side_effects
+        assert username == login.login(file)
