@@ -10,21 +10,21 @@ def now():
 
 
 @pytest.mark.parametrize("name, capacity, price",
-                         [('Deluxe', 2, 250), ('Superior', 2, 200), ('Standard', 2, 110), ('Economy', 1, 90)])
+                         [('deluxe', 2, 250), ('superior', 2, 200), ('standard', 2, 110), ('economy', 1, 90)])
 def test_get_room(name, capacity, price):
     room = rm.get_room(name)
     assert room is not None if capacity or price else None
 
 
 @pytest.mark.parametrize("price, capacity, name",
-                         [(250, 2, 'Deluxe'), (200, 2, 'Superior'), (110, 2, 'Standard'), (90, 1, 'Economy')])
+                         [(250, 2, 'deluxe'), (200, 2, 'superior'), (110, 2, 'standard'), (90, 1, 'economy')])
 def test_find_price(price, capacity, name):
     price = rm.find_price(price)
     assert price is not None if capacity or name else None
 
 
 @pytest.mark.parametrize("capacity, price, name",
-                         [(2, 250, 'Deluxe'), (2, 200, 'Superior'), (2, 110, 'Standard'), (1, 90, 'Economy')])
+                         [(2, 250, 'deluxe'), (2, 200, 'superior'), (2, 110, 'standard'), (1, 90, 'economy')])
 def test_find_capacity(capacity, price, name):
     capacity = rm.find_capacity(capacity)
     assert capacity is not None if price or name else None
@@ -61,9 +61,7 @@ def test_is_birthday():
     assert rm.is_birthday()
 
 
-# problem with this test, the second bool parameter is fixed in the test but randomly generated in the function,
-#  so the test will randomly pass / fail
 @pytest.mark.parametrize("room, result, expected", [
-    ("Double", False, False), ("Double", True, True)])
+    ("double", False, False), ("double", True, True)])
 def test_can_book_room(room, result, expected):
     assert rm.can_book_room(room, result) == expected
