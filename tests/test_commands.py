@@ -100,7 +100,7 @@ def test_is_valid_username_prints_error_msg(capsys, new_username):
     assert out.find('Sorry') != -1
 
 
-@pytest.mark.parametrize("old_username, new_username", [('dj', 'billy'), ('rosie', 't_dawg'), ('blair', 'flair')])
+@pytest.mark.parametrize("old_username, new_username", [('dj', 'billy'), ('rosie', 'tdawg'), ('blair', 'flair')])
 def test_change_username(users, old_username, new_username):
     with open(users) as file:
         reader = csv.DictReader(file)
