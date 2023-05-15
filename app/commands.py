@@ -80,15 +80,15 @@ def change_username(users_csv_file, old_username, new_username):
 
     for user in data:
         if user['username'] == old_username:
-            user['username'] = new_username
+            if is_valid_username(new_username):
+                user['username'] = new_username
+                print(f"Success! User '{old_username}' has been updated to '{new_username}' in the CSV file." + "\n")
 
     with open(users_csv_file, mode='w', newline='') as csvfile:
         fieldnames = ['username', 'password']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(data)
-
-    print(f"Success! User '{old_username}' has been updated to '{new_username}' in the CSV file.")
 
 
 def shut_down():
