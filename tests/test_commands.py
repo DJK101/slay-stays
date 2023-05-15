@@ -109,7 +109,8 @@ def test_change_username(users, old_username, new_username):
         users_list = list(reader)
         usernames = [user['username'] for user in users_list]
         user_index = usernames.index(old_username)
-        cmds.change_username(users, old_username, new_username)
+        with patch('builtins.input', return_value=new_username):
+            cmds.change_username(old_username, users)
         file.seek(0)
         next(reader)
         new_users_list = list(reader)
@@ -119,7 +120,8 @@ def test_change_username(users, old_username, new_username):
 @pytest.mark.parametrize("old_username, new_username",
                          [('dj', 'stace'), ('amy', 'connor'), ('blair', 'elizabeth')])
 def test_check_change_username_prints_success_msg(capsys, users, old_username, new_username):
-    cmds.change_username(users, old_username, new_username)
+    with patch('builtins.input', return_value=new_username):
+        cmds.change_username(old_username, users)
     out, err = capsys.readouterr()
     assert out.find('Success') != -1
 
