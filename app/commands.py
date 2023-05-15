@@ -14,7 +14,7 @@ if os.path.basename(cwd) != 'slay-stays':
 print(os.getcwd())
 
 bookings_csv = 'csv/bookings.csv'
-keywords = ['help', 'quit', 'register', 'book', 'my_bookings', 'change']
+keywords = ['help', 'quit', 'register', 'book', 'my_bookings', 'change_username']
 rooms = ['double', 'single', 'family', 'suite', 'penthouse', 'presidential', 'deluxe', 'superior', 'standard',
          'economy']
 
@@ -106,7 +106,8 @@ def change_username(old_username, users_csv_file=users_csv):
         if user['username'] == old_username:
             if is_valid_username(new_username):
                 user['username'] = new_username
-                print(f"Success! User '{old_username}' has been updated to '{new_username}' in the CSV file." + "\n")
+                print(f"Success! User '{old_username}' has been updated to '{new_username}'.")
+                login.set_current_user(new_username)
 
     with open(users_csv_file, mode='w', newline='') as csvfile:
         fieldnames = ['username', 'password']

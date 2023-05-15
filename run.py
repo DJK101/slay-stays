@@ -1,11 +1,11 @@
 import app.parser as parser
-from app.login import login
+import app.login as login
 
-current_user = login()
+login.set_current_user(login.login())
 
-inp = input("Please enter a command ('help' to get a list of commands): ")
-parser.parse_command(inp, current_user)
+inp = input(f"Welcome {login.get_current_user()}, please enter a command ('help' to get a list of commands) => ")
+parser.parse_command(inp, login.get_current_user())
 
 while True:
     inp = input("=> ")
-    parser.parse_command(inp, current_user)
+    parser.parse_command(inp, login.get_current_user())

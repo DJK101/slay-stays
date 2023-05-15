@@ -59,7 +59,7 @@ def create_user(username: str, password: str, file=users_csv):
     with open(file, 'a', newline='\n') as users:
         writer = csv.writer(users)
         writer.writerow([username, password])
-        print(f"Success! Registered user {username} to Slay Stays.")
+        print(f"Success! Registered user '{username}' to Slay Stays.")
 
 
 def check_password(username: str, password: str, csv_file=users_csv) -> bool:
@@ -71,3 +71,15 @@ def check_password(username: str, password: str, csv_file=users_csv) -> bool:
             return True
         else:
             return False
+
+
+current_user = ''
+
+
+def get_current_user() -> str:
+    return current_user
+
+
+def set_current_user(username: str):
+    global current_user
+    current_user = username
