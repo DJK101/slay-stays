@@ -4,13 +4,22 @@ from app.parser import parse_command
 from unittest.mock import patch
 
 
+# NOTE: Only works for testing commands that require no inputs. Specialised tests are made otherwise
 @pytest.mark.parametrize("function_name, command", [('help_menu', 'help'),
-                                                    ('book_room', 'book'),
                                                     ('print_bookings', 'my_bookings'),
                                                     ])
-def test_parse_command_to_call_commands(mocker, function_name, command):
+def test_parse_command_to_call_simple_commands(mocker, function_name, command):
     command_function = mocker.spy(commands, function_name)
     parse_command(command)
+    assert command_function.call_count == 1
+
+
+@pytest.mark.parametrize("function_name, command", [('book_room', 'book'),
+                                                    ])
+def test_parse_command_to_call_book_room(mocker, function_name, command):
+    command_function = mocker.spy(commands, function_name)
+    with patch('builtins.input', side_effect=['single', 2025, 8, 16]):
+        parse_command(command)
     assert command_function.call_count == 1
 
 
