@@ -3,10 +3,10 @@ import datetime as dt
 import re
 import sys
 import app.login as login
-from app.room import AVAILABLE_ROOMS
 
-default_csv = 'csv/bookings.csv'
+default_csv = '../csv/bookings.csv'
 keywords = ['help', 'quit', 'register', 'book', 'my_bookings', 'change']
+rooms = ['double', 'single', 'family', 'suite', 'penthouse', 'presidential', 'deluxe', 'superior', 'standard', 'economy']
 
 
 def help_menu():
@@ -21,9 +21,9 @@ def register_user():
 
 
 def book_room(username: str, csv_file=default_csv):
-    print("List of available rooms: " + str(AVAILABLE_ROOMS))
+    print("List of available rooms: " + str(rooms))
     room = input("Please input the room you wish to book: ").lower()
-    if room not in AVAILABLE_ROOMS:
+    if room not in rooms:
         print("Error! The room entered could not be found.")
         return
     try:

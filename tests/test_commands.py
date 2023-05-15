@@ -37,39 +37,41 @@ def users(tmp_path):
     yield csv_file
 
 
-@pytest.mark.parametrize("entries", [['amy', 'suite', '2023-09-10'],
-                                     ['rosie', 'double', '2024-07-01'],
-                                     ['john', 'single', '2024-11-05'],
-                                     ['alex', 'penthouse', '2023-03-23'],
-                                     ['fred', 'standard', '2023-09-17']])
-def test_book_room_adds_to_csv(bookings, entries):
+@pytest.mark.parametrize("username, room, date_str", [['amy', 'suite', '2023-09-10'],
+                                                      ['rosie', 'double', '2024-07-01'],
+                                                      ['john', 'single', '2024-11-05'],
+                                                      ['alex', 'penthouse', '2023-03-23'],
+                                                      ['fred', 'standard', '2023-09-17']])
+def test_book_room_adds_to_csv(bookings, username, room, date_str):
     with open(bookings) as file:
         reader = csv.reader(file)
         bookings_before = list(reader)
-        date = dt.strptime(entries[2], '%Y-%m-%d')  # Convert string to datetime object for function
+        date = dt.strptime(date_str, '%Y-%m-%d')  # Convert string to datetime object for function
         with patch('builtins.print') as mock_print:
-            cmds.book_room(entries[0], entries[1], date, bookings)  # Function being tested
-            mock_print.assert_called_once_with(f"Success! Room: {entries[1]} booked for {entries[2]}.")
+            with patch('builtins.input', side_effect=[room, date.year, date.month, date.day]):
+                cmds.book_room(username, bookings)  # Function being tested
+            mock_print.assert_called_with(f"Success! Room: {room} booked for {date_str}.")
         file.seek(0)  # Set reader to read from beginning of csv file
         bookings_after = list(reader)
         assert len(bookings_before) + 1 == len(bookings_after)  # Check a new line was added to the csv
-        assert bookings_after[-1] == entries  # Checks booking was added to the end of the csv
+        assert bookings_after[-1] == [username, room, date_str]  # Checks booking was added to the end of the csv
 
 
-@pytest.mark.parametrize("entries", [['amy', 'double', '2023-09-17'],
-                                     ['rosie', 'suite', '2023-09-17'], ])
-def test_book_room_not_booking_same_room_on_same_date(bookings, entries):
+@pytest.mark.parametrize("username, room, date_str", [['amy', 'double', '2023-09-17'],
+                                                      ['rosie', 'suite', '2023-09-17'], ])
+def test_book_room_not_booking_same_room_on_same_date(bookings, username, room, date_str):
     with open(bookings) as file:
         reader = csv.reader(file)
         bookings_before = list(reader)
         file.seek(0)  # Set reader to read from beginning of csv file
-        date = dt.strptime(entries[2], '%Y-%m-%d')
+        date = dt.strptime(date_str, '%Y-%m-%d')
         with patch('builtins.print') as mock_print:
-            cmds.book_room(entries[0], entries[1], date, bookings)
-            mock_print.assert_called_once_with("Sorry, that room has already been booked on that date.")
+            with patch('builtins.input', side_effect=[room, date.year, date.month, date.day]):
+                cmds.book_room(username, bookings)
+            mock_print.assert_called_with("Sorry, that room has already been booked on that date.")
         bookings_after = list(reader)
         assert len(bookings_before) == len(bookings_after)
-        assert bookings_after[-1] == ['amy', 'double', '2023-09-17']
+        assert bookings_after[-1] == bookings_before[-1]
 
 
 @pytest.mark.parametrize("username", ['dj', 'amy'])
