@@ -11,5 +11,9 @@ def parse_command(command: str, username: str = ''):
         cmds.shut_down()
     elif command == keywords[2]:
         cmds.register_user()
+    elif command == keywords[3]:
+        cmds.book_room(username)
+    elif command == keywords[4]:
+        cmds.print_bookings(username)
     else:
-        print(f"Sorry, the statement {command} is not a recognised entry.")
+        print(f"Sorry, the statement '{command}' is not a recognised command.")

@@ -3,7 +3,9 @@ import datetime as dt
 import re
 import sys
 import app.login as login
+from app.room import AVAILABLE_ROOMS
 
+default_csv = 'csv/bookings.csv'
 keywords = ['help', 'quit', 'register', 'book', 'my_bookings', 'change']
 
 
@@ -18,7 +20,7 @@ def register_user():
     login.create_user(username, password)
 
 
-def book_room(username: str, room: str, date: dt.date, csv_file='bookings.csv'):
+def book_room(username: str, room: str, date: dt.date, csv_file=default_csv):
     date_string = date.strftime('%Y-%m-%d')
     with open(csv_file, 'r') as r_file:
         reader = csv.DictReader(r_file)
@@ -32,7 +34,7 @@ def book_room(username: str, room: str, date: dt.date, csv_file='bookings.csv'):
 
         if booking_available:
             r_file.close()
-            with open(csv_file, 'a', newline='') as w_file:
+            with open(csv_file, 'a', newline='\n') as w_file:
                 writer = csv.writer(w_file)
                 writer.writerow([username, room, date_string])
                 print(f"Success! Room: {room} booked for {date_string}.")
@@ -40,7 +42,7 @@ def book_room(username: str, room: str, date: dt.date, csv_file='bookings.csv'):
             print("Sorry, that room has already been booked on that date.")
 
 
-def print_bookings(username: str, csv_file):
+def print_bookings(username: str, csv_file=default_csv):
     with open(csv_file) as file:
         reader = csv.DictReader(file)
         bookings = list(reader)
