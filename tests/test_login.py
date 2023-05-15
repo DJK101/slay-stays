@@ -1,7 +1,7 @@
 import pytest
 import app.login as login
 import csv
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 
 
 @pytest.fixture

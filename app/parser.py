@@ -1,5 +1,3 @@
-import datetime
-
 import app.commands as cmds
 from app.commands import keywords
 
