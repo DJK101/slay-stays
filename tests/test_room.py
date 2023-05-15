@@ -2,6 +2,7 @@ import datetime
 import pytest
 import app.room as rm
 from freezegun import freeze_time
+from unittest.mock import patch
 
 
 @pytest.fixture
@@ -62,7 +63,20 @@ def test_is_birthday():
 
 
 def test_can_book_room(mocker):
-    mocker.patch('app.room.is_sunny_outside', return_value=True)
-    expected = True
-    actual = rm.is_sunny_outside()
-    assert expected == actual
+    # mocker.patch('app.room.is_sunny_outside', return_value=True)
+    # expected = True
+    # actual = rm.is_sunny_outside()
+    # assert expected == actual
+
+    with patch('app.room.is_sunny_outside', return_value=True):
+        assert rm.is_sunny_outside() == True
+    with patch('app.room.is_sunny_outside', return_value=False):
+        assert rm.is_sunny_outside() == False
+    with patch('app.room.is_tuesday', return_value=True):
+        assert rm.is_tuesday() == True
+    with patch('app.room.is_tuesday', return_value=False):
+        assert rm.is_tuesday() == False
+    with patch('app.room.is_birthday', return_value=True):
+        assert rm.is_birthday() == True
+    with patch('app.room.is_birthday', return_value=False):
+        assert rm.is_birthday() == False

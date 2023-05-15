@@ -5,7 +5,7 @@ import sys
 import app.login as login
 from app.room import AVAILABLE_ROOMS
 
-default_csv = '../csv/bookings.csv'
+default_csv = 'csv/bookings.csv'
 keywords = ['help', 'quit', 'register', 'book', 'my_bookings', 'change']
 
 
