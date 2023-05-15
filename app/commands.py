@@ -5,7 +5,7 @@ import sys
 import app.login as login
 from app.room import AVAILABLE_ROOMS
 
-default_csv = 'csv/bookings.csv'
+default_csv = '../csv/bookings.csv'
 keywords = ['help', 'quit', 'register', 'book', 'my_bookings', 'change']
 
 
@@ -76,7 +76,7 @@ def is_valid_username(new_username):
 def change_username(users_csv_file, old_username, new_username):
     with open(users_csv_file, mode='r') as users:
         reader = csv.DictReader(users)
-        data = [row for row in reader]
+        data = list(reader)
 
     for user in data:
         if user['username'] == old_username:
