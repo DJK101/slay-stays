@@ -1,7 +1,7 @@
 import pytest
 import app.login as login
 import csv
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 
 
 @pytest.fixture
@@ -37,7 +37,7 @@ def test_create_user_adds_user_to_csv(file, username, password):
         users_before = list(reader)
         with patch('builtins.print') as mock_print:
             login.create_user(username, password, file)
-            mock_print.assert_called_once_with(f"Success! Registered user {username} to Slay Stays.")
+            mock_print.assert_called_once_with(f"Success! Registered user '{username}' to Slay Stays.")
         users.seek(0)
         users_after = list(reader)
         assert len(users_before) + 1 == len(users_after)

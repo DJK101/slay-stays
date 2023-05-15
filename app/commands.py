@@ -1,12 +1,22 @@
 import csv
 import datetime as dt
+import os
 import re
 import sys
 import app.login as login
-from app.room import AVAILABLE_ROOMS
+from app.login import users_csv
 
-default_csv = 'csv/bookings.csv'
-keywords = ['help', 'quit', 'register', 'book', 'my_bookings', 'change']
+# Fixes issue with tests executing code in different directory to program being run
+cwd = os.getcwd()
+if os.path.basename(cwd) != 'slay-stays':
+    os.chdir('../')
+
+print(os.getcwd())
+
+bookings_csv = 'csv/bookings.csv'
+keywords = ['help', 'quit', 'register', 'book', 'my_bookings', 'change_username']
+rooms = ['double', 'single', 'family', 'suite', 'penthouse', 'presidential', 'deluxe', 'superior', 'standard',
+         'economy']
 
 
 def help_menu():
@@ -20,7 +30,20 @@ def register_user():
     login.create_user(username, password)
 
 
-def book_room(username: str, room: str, date: dt.date, csv_file=default_csv):
+def book_room(username: str, csv_file=bookings_csv):
+    print("List of available rooms: " + str(rooms))
+    room = input("Please input the room you wish to book: ").lower()
+    if room not in rooms:
+        print("Error! The room entered could not be found.")
+        return
+    try:
+        year = int(input("First, enter the YEAR of this booking (as an integer): "))
+        month = int(input("Enter the MONTH of this booking (as an integer): "))
+        day = int(input("Enter the DAY of this booking (as an integer): "))
+    except ValueError:
+        print("Error! The value entered could not be converted to an integer.")
+        return
+    date = dt.date(year, month, day)
     date_string = date.strftime('%Y-%m-%d')
     with open(csv_file, 'r') as r_file:
         reader = csv.DictReader(r_file)
@@ -42,7 +65,7 @@ def book_room(username: str, room: str, date: dt.date, csv_file=default_csv):
             print("Sorry, that room has already been booked on that date.")
 
 
-def print_bookings(username: str, csv_file=default_csv):
+def print_bookings(username: str, csv_file=bookings_csv):
     with open(csv_file) as file:
         reader = csv.DictReader(file)
         bookings = list(reader)
@@ -63,7 +86,7 @@ def print_bookings(username: str, csv_file=default_csv):
 def is_valid_username(new_username):
     # returns true if username is valid.
     # valid usernames are between 2-16 characters long.
-    # valid usernames only contain ALPHAnumeric characters and underscores.
+    # valid usernames only contain Alphanumeric characters and underscores.
     pattern = r"^[a-zA-Z0-9_]{2,16}$"
     if bool(re.match(pattern, new_username)):
         return True
@@ -73,7 +96,8 @@ def is_valid_username(new_username):
         return False
 
 
-def change_username(users_csv_file, old_username, new_username):
+def change_username(old_username, users_csv_file=users_csv):
+    new_username = input("Please enter your new username: ")
     with open(users_csv_file, mode='r') as users:
         reader = csv.DictReader(users)
         data = list(reader)
@@ -82,7 +106,8 @@ def change_username(users_csv_file, old_username, new_username):
         if user['username'] == old_username:
             if is_valid_username(new_username):
                 user['username'] = new_username
-                print(f"Success! User '{old_username}' has been updated to '{new_username}' in the CSV file." + "\n")
+                print(f"Success! User '{old_username}' has been updated to '{new_username}'.")
+                login.set_current_user(new_username)
 
     with open(users_csv_file, mode='w', newline='') as csvfile:
         fieldnames = ['username', 'password']

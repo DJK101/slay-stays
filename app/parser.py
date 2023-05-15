@@ -1,5 +1,3 @@
-import datetime
-
 import app.commands as cmds
 from app.commands import keywords
 
@@ -14,8 +12,10 @@ def parse_command(command: str, username: str = ''):
     elif command == keywords[2]:
         cmds.register_user()
     elif command == keywords[3]:
-        cmds.book_room(username, 'suite', datetime.date(2025, 8, 7))
+        cmds.book_room(username)
     elif command == keywords[4]:
         cmds.print_bookings(username)
+    elif command == keywords[5]:
+        cmds.change_username(username)
     else:
         print(f"Sorry, the statement '{command}' is not a recognised command.")
