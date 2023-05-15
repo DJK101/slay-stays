@@ -112,10 +112,10 @@ def can_book_room(name, dt):
     elif name == 'family' and not is_snowing_outside():
         print("You cannot book this room because it's not snowing outside!")
         return False
-    elif name == 'suite' and not is_tuesday(dt):
+    elif name == 'suite' and not is_tuesday():
         print("You can book this room because it's not a Tuesday!")
         return False
-    elif name == 'penthouse' and not is_wednesday(dt):
+    elif name == 'penthouse' and not is_wednesday():
         print("You cannot book this room because it's not a Wednesday!")
         return False
     elif name == 'presidential' and not is_birthday():
@@ -127,10 +127,10 @@ def can_book_room(name, dt):
     elif name == 'superior' and not is_birthday():
         print("You cannot book this room because it's not one of our birthdays!")
         return False
-    elif name == 'standard' and (not is_sunny_outside() or not is_tuesday(dt)):
+    elif name == 'standard' and (not is_sunny_outside() or not is_tuesday()):
         print("You cannot book this room because it's not a sunny Tuesday!")
         return False
-    elif name == 'economy' and (not is_raining_outside() or not is_wednesday(dt)):
+    elif name == 'economy' and (not is_raining_outside() or not is_wednesday()):
         print("You cannot book this room because it's not a rainy Wednesday!")
         return False
     else:
