@@ -1,12 +1,21 @@
 import csv
 import datetime as dt
+import os
 import re
 import sys
 import app.login as login
 
-default_csv = '../csv/bookings.csv'
+# Fixes issue with tests executing code in different directory to program being run
+cwd = os.getcwd()
+if os.path.basename(cwd) != 'slay-stays':
+    os.chdir('../')
+
+print(os.getcwd())
+
+default_csv = 'csv/bookings.csv'
 keywords = ['help', 'quit', 'register', 'book', 'my_bookings', 'change']
-rooms = ['double', 'single', 'family', 'suite', 'penthouse', 'presidential', 'deluxe', 'superior', 'standard', 'economy']
+rooms = ['double', 'single', 'family', 'suite', 'penthouse', 'presidential', 'deluxe', 'superior', 'standard',
+         'economy']
 
 
 def help_menu():
