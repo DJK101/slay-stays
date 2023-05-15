@@ -12,7 +12,7 @@ The aim of this project was to design, build and test a room booking system. Hen
 For this project, we adopted the practice of Test-Driven Development (TDD).
 
 ## How to Run  
-1. Open 'slay-stays' directory in your terminal
+1. Open 'slay-stays' directory in your terminal (make sure the name of the directory is 'slay-stays' or the tests may fail)
 2. To run pytest: 'python -m pytest'
 3. To run application: 'python run.py'
 
