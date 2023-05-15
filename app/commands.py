@@ -20,7 +20,20 @@ def register_user():
     login.create_user(username, password)
 
 
-def book_room(username: str, room: str, date: dt.date, csv_file=default_csv):
+def book_room(username: str, csv_file=default_csv):
+    print("List of available rooms: " + str(AVAILABLE_ROOMS))
+    room = input("Please input the room you wish to book: ").lower()
+    if room not in AVAILABLE_ROOMS:
+        print("Error! The room entered could not be found.")
+        return
+    try:
+        year = int(input("First, enter the YEAR of this booking (as an integer): "))
+        month = int(input("Enter the MONTH of this booking (as an integer): "))
+        day = int(input("Enter the DAY of this booking (as an integer): "))
+    except ValueError:
+        print("Error! The value entered could not be converted to an integer.")
+        return
+    date = dt.date(year, month, day)
     date_string = date.strftime('%Y-%m-%d')
     with open(csv_file, 'r') as r_file:
         reader = csv.DictReader(r_file)
