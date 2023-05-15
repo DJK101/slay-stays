@@ -1,8 +1,10 @@
 import csv
 
+default_csv = 'csv/users.csv'
+
 
 # Runs login screen. Returns username of logged-in user
-def login(csv_file='app/users.csv') -> str:
+def login(csv_file=default_csv) -> str:
     username = input("Please enter your username: ")
     while find_user(username, csv_file) == -1:
         username = input(f"Sorry, the username {username} couldn't be found. Please try again: ")
@@ -13,7 +15,7 @@ def login(csv_file='app/users.csv') -> str:
 
 
 # Returns index of username in the database. First user at index 0
-def find_user(username: str, file='app/users.csv') -> int:
+def find_user(username: str, file=default_csv) -> int:
     with open(file) as users:
         reader = csv.DictReader(users)
         users = list(reader)
@@ -46,7 +48,7 @@ def delete_user(username: str, admin_password: str, file):
     print(f"Success! Deleted user '{username}' from database.")
 
 
-def create_user(username: str, password: str, file='app/users.csv'):
+def create_user(username: str, password: str, file=default_csv):
     with open(file) as users:
         reader = csv.DictReader(users)
         usernames = [user['username'] for user in list(reader)]
@@ -60,7 +62,7 @@ def create_user(username: str, password: str, file='app/users.csv'):
         print(f"Success! Registered user {username} to Slay Stays.")
 
 
-def check_password(username: str, password: str, csv_file='app/users.csv') -> bool:
+def check_password(username: str, password: str, csv_file=default_csv) -> bool:
     user_index = find_user(username, csv_file)
     with open(csv_file, 'r') as users:
         reader = csv.DictReader(users)
