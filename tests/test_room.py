@@ -10,11 +10,6 @@ def now():
     return datetime.datetime.now()
 
 
-@pytest.fixture
-def now():
-    return datetime.datetime.now()
-
-
 @pytest.mark.parametrize("name, capacity, price",
                          [('Deluxe', 2, 250), ('Superior', 2, 200), ('Standard', 2, 110), ('Economy', 1, 90)])
 def test_get_room(name, capacity, price):
