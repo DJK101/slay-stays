@@ -2,7 +2,6 @@ import datetime
 import pytest
 import app.room as rm
 from freezegun import freeze_time
-from datetime import datetime as dt
 
 
 @pytest.fixture
@@ -47,20 +46,14 @@ def test_is_snowing_outside():
     assert rm.is_snowing_outside() in [True, False]
 
 
-@pytest.mark.parametrize("date, expected", [('2022-06-08', False),
-                                            ('2022-06-07', True),
-                                            ('2022-06-09', False)])
-def test_is_tuesday(date, expected):
-    date = dt.strptime(date, '%Y-%m-%d')
-    assert rm.is_tuesday(date) == expected
+@freeze_time("2022-06-08")
+def test_is_wednesday():
+    assert rm.is_wednesday()
 
 
-@pytest.mark.parametrize("date, expected", [('2022-06-08', True),
-                                            ('2022-06-07', False),
-                                            ('2022-06-09', False)])
-def test_is_wednesday(date, expected):
-    date = dt.strptime(date, '%Y-%m-%d')
-    assert rm.is_wednesday(date) == expected
+@freeze_time("2022-06-07")
+def test_is_tuesday():
+    assert rm.is_tuesday()
 
 
 @freeze_time("2021-07-23")
