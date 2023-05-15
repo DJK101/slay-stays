@@ -4,6 +4,7 @@ import os
 import re
 import sys
 import app.login as login
+from app.login import users_csv
 
 # Fixes issue with tests executing code in different directory to program being run
 cwd = os.getcwd()
@@ -12,7 +13,7 @@ if os.path.basename(cwd) != 'slay-stays':
 
 print(os.getcwd())
 
-default_csv = 'csv/bookings.csv'
+bookings_csv = 'csv/bookings.csv'
 keywords = ['help', 'quit', 'register', 'book', 'my_bookings', 'change']
 rooms = ['double', 'single', 'family', 'suite', 'penthouse', 'presidential', 'deluxe', 'superior', 'standard',
          'economy']
@@ -29,7 +30,7 @@ def register_user():
     login.create_user(username, password)
 
 
-def book_room(username: str, csv_file=default_csv):
+def book_room(username: str, csv_file=bookings_csv):
     print("List of available rooms: " + str(rooms))
     room = input("Please input the room you wish to book: ").lower()
     if room not in rooms:
@@ -64,7 +65,7 @@ def book_room(username: str, csv_file=default_csv):
             print("Sorry, that room has already been booked on that date.")
 
 
-def print_bookings(username: str, csv_file=default_csv):
+def print_bookings(username: str, csv_file=bookings_csv):
     with open(csv_file) as file:
         reader = csv.DictReader(file)
         bookings = list(reader)
@@ -85,7 +86,7 @@ def print_bookings(username: str, csv_file=default_csv):
 def is_valid_username(new_username):
     # returns true if username is valid.
     # valid usernames are between 2-16 characters long.
-    # valid usernames only contain ALPHAnumeric characters and underscores.
+    # valid usernames only contain Alphanumeric characters and underscores.
     pattern = r"^[a-zA-Z0-9_]{2,16}$"
     if bool(re.match(pattern, new_username)):
         return True
@@ -95,7 +96,8 @@ def is_valid_username(new_username):
         return False
 
 
-def change_username(users_csv_file, old_username, new_username):
+def change_username(old_username, users_csv_file=users_csv):
+    new_username = input("Please enter your new username: ")
     with open(users_csv_file, mode='r') as users:
         reader = csv.DictReader(users)
         data = list(reader)
