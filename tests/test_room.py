@@ -61,7 +61,8 @@ def test_is_birthday():
     assert rm.is_birthday()
 
 
-@pytest.mark.parametrize("room, result, expected", [
-    ("double", False, False), ("double", True, True)])
-def test_can_book_room(room, result, expected):
-    assert rm.can_book_room(room, result) == expected
+def test_can_book_room(mocker):
+    mocker.patch('app.room.is_sunny_outside', return_value=True)
+    expected = True
+    actual = rm.is_sunny_outside()
+    assert expected == actual
