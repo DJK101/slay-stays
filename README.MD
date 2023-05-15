@@ -34,7 +34,7 @@ can perform the same task). | _test_parser.py_ |
 ![Coverage report](coverage.png)
 
 ## Contributions
-- **Amy -** wrote all code included in room.py and test_room.py. All work to try and make mutmut.py useful.
-- **Rosie -** wrote all tests and implementations for username_is_valid() and change_username() in commands.py and test_commands.py.
-- **DJ -** wrote remaining files and tests. Implemented the GitHub actions workflow.
+- **Amy -** wrote all code included in room.py and test_room.py. All work to try and make mutmut.py useful. **35%**
+- **Rosie -** wrote all tests and implementations for username_is_valid() and change_username() in commands.py and test_commands.py. **30%**
+- **DJ -** wrote remaining files and tests. Implemented the GitHub actions workflow. **35%**
 ![GitHub insights](contributions.png)
